@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{> analytics }}
+  {{> meta_data }}
+  {{> icon }}
+
+  <!-- Site Properties -->
+  <title>Junior Programmers Camp XV - Admin</title>
+  {{> admin/include_libraries }}
+
+  <style>
+    .width-100 {
+      width: 100% !important;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <footer class="wrapper ">
+    <div class="sidebar" data-color="blue" data-active-color="danger">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+      <div class="logo">
+        <a href="https://jpc.sit.kmutt.ac.th" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src="/assets/img/jpc-logo.png">
+          </div>
+        </a>
+        <a href="https://jpc.sit.kmutt.ac.th" class="simple-text logo-normal">
+          JPC XV Admin
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active">
+            <a href="./dashboard.html">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          {{!-- <li>
+            <a href="./icons.html">
+              <i class="nc-icon nc-diamond"></i>
+              <p>Icons</p>
+            </a>
+          </li> --}}
+        </ul>
+      </div>
+    </div>
+    <footer class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#pablo">Junior Programmers Camp XV - Admin Dashboard</a>
+          </div>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+              {{!-- <li class="nav-item">
+                <a class="nav-link btn-magnify" href="#pablo">
+                  <i class="nc-icon nc-layout-11"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li> --}}
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="content">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-5 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <i class="fas fa-users"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <p class="card-category">All registered</p>
+                      <p class="card-title">{{countAll}}
+                        <p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fas fa-sync"></i> Update Now
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-5 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <i class="fas fa-user-check"></i>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <p class="card-category">Completed registered</p>
+                      <p class="card-title">{{countCompleted}}
+                        <p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fas fa-sync"></i> Update Now
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card card-stats">
+              <div class="card-body" style="max-height: 221px; overflow: auto;">
+                <div class="row">
+                  <div class="col-12 col-md-8">
+                    <div class="numbers mb-2">
+                      <p class="card-category">Registered History</p>
+                    </div>
+                    <div>
+                      <p id="out">
+                        <script>
+                          var str = "{{countLog}}";
+                          str = str.replace(new RegExp("&lt;", "g"), "<");
+                          str = str.replace(new RegExp("&gt;", "g"), ">");
+                          var arr = str.split("<br>");
+                          var res = "";
+                          arr.map(x => res += ("<li>" + x + "</li>"));
+                          str = "<ul>" + str + "</ul>";
+                          $("#out").append($.parseHTML(res));
+                        </script>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <form id="search-user" class="ui form">
+            <h4>Search User Info</h4>
+            <hr>
+            <div class="form-group">
+              <label for="id">USER ID: </label>
+              <input class="form-control" type="text" name="id" required>
+            </div>
+            <button type="submit" class="btn btn-primary button">Search</button>
+          </form>
+        </div>
+        <div class="row">
+          <div id="search-result-user" class="width-100"></div>
+        </div>
+        <div class="row">
+          <form id="search-answer" class="ui form">
+            <h4>Search Answer</h4>
+            <hr>
+            <div class="form-group">
+              <label for="id">USER ID: </label>
+              <input class="form-control" type="text" name="id" required>
+            </div>
+            <button type="submit" class="btn btn-primary button">Search</button>
+          </form>
+        </div>
+        <div class="row">
+          <div id="search-result-answer" class="width-100"></div>
+        </div>
+        <div class="row">
+          <form id="upload-picture" enctype="multipart/form-data">
+            <h4>Uplaod Picture for User</h4>
+            <label for="id">USER ID: </label>
+            <input class="form-control" type="text" name="id" required>
+            <input class="form-control" type="file" name="picture" required>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+        </div>
+        <div class="row">
+          <form id="upload-document" enctype="multipart/form-data">
+            <h4>Uplaod Document for User</h4>
+            <label for="id">USER ID: </label>
+            <input class="form-control" type="text" name="id" required>
+            <input class="form-control" type="file" name="document" required>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+        </div>
+        <div class="row">
+          <form id="search-user-all" class="ui form">
+            <h4>Show All Users</h4>
+            <hr>
+            <button type="submit" class="btn btn-primary button">Show All</button>
+          </form>
+        </div>
+        <div class="row">
+          <div id="search-result-user-all" class="width-100"></div>
+        </div>
+        <div class="row">
+          <form id="search-answer-all" class="ui form">
+            <h4>Show All Answers</h4>
+            <hr>
+            <button type="submit" class="btn btn-primary button">Show All</button>
+          </form>
+        </div>
+        <div class="row">
+          <div id="search-result-answer-all" class="width-100"></div>
+        </div>
+        {{!-- <div class="row">
+          <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">Users Behavior</h5>
+                <p class="card-category">24 Hours performance</p>
+              </div>
+              <div class="card-body ">
+                <canvas id=chartHours width="400" height="100"></canvas>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-history"></i> Updated 3 minutes ago
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card ">
+              <div class="card-header ">
+                <h5 class="card-title">Email Statistics</h5>
+                <p class="card-category">Last Campaign Performance</p>
+              </div>
+              <div class="card-body ">
+                <canvas id="chartEmail"></canvas>
+              </div>
+              <div class="card-footer ">
+                <div class="legend">
+                  <i class="fa fa-circle text-primary"></i> Opened
+                  <i class="fa fa-circle text-warning"></i> Read
+                  <i class="fa fa-circle text-danger"></i> Deleted
+                  <i class="fa fa-circle text-gray"></i> Unopened
+                </div>
+                <hr>
+                <div class="stats">
+                  <i class="fa fa-calendar"></i> Number of emails sent
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-title">NASDAQ: AAPL</h5>
+                <p class="card-category">Line Chart with Points</p>
+              </div>
+              <div class="card-body">
+                <canvas id="speedChart" width="400" height="100"></canvas>
+              </div>
+              <div class="card-footer">
+                <div class="chart-legend">
+                  <i class="fa fa-circle text-info"></i> Tesla Model S
+                  <i class="fa fa-circle text-warning"></i> BMW 5 Series
+                </div>
+                <hr />
+                <div class="card-stats">
+                  <i class="fa fa-check"></i> Data information certified
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> --}}
+        <footer class="footer footer-black  footer-white ">
+          <div class="container-fluid">
+            <div class="row">
+              <nav class="footer-nav">
+                {{!-- <ul>
+                <li>
+                  <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
+                </li>
+                <li>
+                  <a href="http://blog.creative-tim.com/" target="_blank">Blog</a>
+                </li>
+                <li>
+                  <a href="https://www.creative-tim.com/license" target="_blank">Licenses</a>
+                </li>
+              </ul> --}}
+              </nav>
+              <div class="credits ml-auto">
+                <span class="copyright">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear())
+                  </script> Pittawat Taveekitworachai
+                </span>
+              </div>
+            </div>
+          </div>
+        </footer>
+    </footer>
+  </footer>
+  <script src="/assets/js/scripts-admin.js"></script>
+</body>
+
+</html>

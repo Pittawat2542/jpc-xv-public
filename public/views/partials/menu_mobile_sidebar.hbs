@@ -1,0 +1,34 @@
+<div class="ui container" id="main-navbar">
+    <div class="ui large secondary inverted pointing menu">
+        <a class="toc item">
+            <i class="sidebar icon"></i>
+        </a>
+        <a class="item" href="#what-section">What</a>
+        <a class="item" href="#location-section">Where</a>
+        <a class="item" href="#when-section">When</a>
+        <a class="item" href="#faq-section">FAQ</a>
+        <a class="item" href="#sponsor-section">Sponsor</a>
+        <div class="right item">
+            {{#if user}}
+            {{#if isRegisterCompleted}}
+            <a class="ui inverted disabled green button">การสมัครเสร็จสมบูรณ์!</a>
+            {{else}}
+            {{#if isCloseRegister}}
+            {{else}}
+            <a class="ui inverted button" href='/register'>สมัครค่าย</a>
+            {{/if}}
+            {{/if}}
+            <div class="item">
+                <form class="ui large form" action="/api/auth/facebook/logout" method="POST">
+                    <button class="ui inverted negative submit button" type="submit">ออกจากระบบ</but>
+                </form>
+            </div>
+            {{else}}
+            {{#if isCloseRegister}}
+            {{else}}
+            <a class="ui inverted login button" href='/login'>สมัครค่าย</a>
+            {{/if}}
+            {{/if}}
+        </div>
+    </div>
+</div>

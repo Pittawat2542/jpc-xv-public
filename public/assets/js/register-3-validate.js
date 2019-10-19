@@ -1,0 +1,1 @@
+let fieldsValidators={answer1:{identifier:"answer1",rules:[{type:"empty",prompt:"กรุณาตอบคำตอบข้อที่ 1"}]},answer2:{identifier:"answer2",rules:[{type:"empty",prompt:"กรุณาตอบคำตอบข้อที่ 2"}]},answer3:{identifier:"answer3",rules:[{type:"empty",prompt:"กรุณาตอบคำตอบข้อที่ 3"}]}}

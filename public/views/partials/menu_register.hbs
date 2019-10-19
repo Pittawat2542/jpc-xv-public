@@ -1,0 +1,27 @@
+<!-- Following Menu -->
+<div id="register-nav" class="ui inverted large top fixed hidden menu">
+    <div class="ui container">
+        <a style="padding: 0" class="item register-inline-block" href="/"><img class="ui tiny image" src="/assets/img/jpc-logo.png" alt="JPC Logo"></a>
+        <div class="right menu">
+            {{#if user}}
+            <div class="item">
+                <form class="ui form" action="/api/auth/facebook/logout" method="POST">
+                    <button class="ui negative submit button" type="submit">ออกจากระบบ</button>
+                </form>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<!-- Sidebar Menu -->
+<div class="ui vertical inverted sidebar menu">
+    <a style="padding: 0" class="item register-inline-block" href="/"><img class="ui tiny image" src="/assets/img/jpc-logo.png" alt="JPC Logo"></a>
+    {{#if user}}
+    <div class="item">
+        <form class="ui form" action="/api/auth/facebook/logout" method="POST">
+            <button style="position: relative;top: -10px;" class="ui negative submit button" type="submit">ออกจากระบบ</but>
+        </form>
+    </div>
+    {{/if}}
+</div>

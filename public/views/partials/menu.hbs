@@ -1,0 +1,64 @@
+<!-- Following Menu -->
+<div class="ui inverted large top fixed hidden menu">
+    <div class="ui container">
+        <a class="item" href="#what-section">What</a>
+        <a class="item" href="#location-section">Where</a>
+        <a class="item" href="#when-section">When</a>
+        <a class="item" href="#faq-section">FAQ</a>
+        <a class="item" href="#sponsor-section">Sponsor</a>
+        <div class="right menu">
+            {{#if user}}
+            {{#if isRegisterCompleted}}
+            <div class="item">
+                <a class="ui inverted disabled green button">การสมัครเสร็จสมบูรณ์!</a>
+            </div>
+            {{else}}
+            {{#if isCloseRegister}}
+            {{else}}
+            <div class="item">
+                <a class="ui inverted button" href='/register'>สมัครค่าย</a>
+            </div>
+            {{/if}}
+            {{/if}}
+            <div class="item">
+                <form class="ui form" action="/api/auth/facebook/logout" method="POST">
+                    <button class="ui negative submit button" type="submit">ออกจากระบบ</button>
+                </form>
+            </div>
+            {{else}}
+            {{#if isCloseRegister}}
+            {{else}}
+            <div class="item">
+                <a class="ui button" href='/login'>สมัครค่าย</a>
+            </div>
+            {{/if}}
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<!-- Sidebar Menu -->
+<div class="ui vertical inverted sidebar menu">
+    <a class="item" href="#what-section">What</a>
+    <a class="item" href="#faq-section">FAQ</a>
+    <a class="item" href="#sponsor-section">Sponsor</a>
+    {{#if user}}
+    {{#if isRegisterCompleted}}
+    {{else}}
+    {{#if isCloseRegister}}
+    {{else}}
+    <a class="ui inverted button" href='/register'>สมัครค่าย</a>
+    {{/if}}
+    {{/if}}
+    <div class="item">
+        <form class="ui form" action="/api/auth/facebook/logout" method="POST">
+            <button class="ui negative submit button" type="submit">ออกจากระบบ</but>
+        </form>
+    </div>
+    {{else}}
+    {{#if isCloseRegister}}
+    {{else}}
+    <a class="item" href='/login'>สมัครค่าย</a>
+    {{/if}}
+    {{/if}}
+</div>

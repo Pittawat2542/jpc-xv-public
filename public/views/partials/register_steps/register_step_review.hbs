@@ -1,0 +1,175 @@
+{{#if dataValid}}
+<div class="ui basic modal" style="font-size: 1.5rem;">
+    <div class="ui icon header">
+        <i class="fas fa-exclamation" style="color:red;font-size:3rem;"></i>
+        คำเตือน
+    </div>
+    <div class="content">
+        <p style="text-align:center;">หากทำการส่งข้อมูลการสมัคร จะไม่สามารถแก้ไขข้อมูลได้ในภายหลัง</p>
+    </div>
+    <div class="actions">
+        <div class="ui ok inverted button">
+            <i class="checkmark icon"></i>
+            รับทราบ
+        </div>
+    </div>
+</div>
+{{else}}
+<div class="ui basic modal" style="font-size: 1.5rem;">
+    <div class="ui icon header">
+        <i class="fas fa-exclamation" style="color:red;font-size:3rem;"></i>
+        คำเตือน
+    </div>
+    <div class="content">
+        <p style="text-align:center;">หากกรอกข้อมูลไม่ครบถ้วน จะไม่สามารถสมัครค่ายได้</p>
+    </div>
+    <div class="actions">
+        <div class="ui ok inverted button">
+            <i class="checkmark icon"></i>
+            รับทราบ
+        </div>
+    </div>
+</div>
+{{/if}}
+
+<div class="ui top attached tabular menu font-FCActive" id="review-tap">
+    <a class="item active" data-tab="first">ข้อมูลทั่วไป</a>
+    <a class="item" data-tab="second">ข้อมูลผู้ปกครอง</a>
+    <a class="item" data-tab="third">ข้อมูลการศึกษา</a>
+    <a class="item" data-tab="fourth">คำตอบ</a>
+</div>
+<div class="ui bottom attached tab segment active" data-tab="first">
+    <h2 class="ui header font-FCActive">ข้อมูลทั่วไป</h2>
+    {{#if userData.profile_picture_file_name}}
+    <img src="/api/pictures/{{userData.profile_picture_file_name}}" alt="User profile" class="ui small image centered">
+    {{/if}}
+    <br>
+    <div class="ui four column grid">
+        <div class="two column row">
+            <p class="column font-thSarabun">ชื่อ (ภาษาไทย): {{userData.th_first_name}}</p>
+            <p class="column font-thSarabun">นามสกุล (ภาษาไทย): {{userData.th_last_name}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">ชื่อ (ภาษาอังกฤษ): {{userData.en_first_name}}</p>
+            <p class="column font-thSarabun">นามสกุล (ภาษาอังกฤษ): {{userData.en_last_name}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">ชื่อเล่น: {{userData.nick_name}}</p>
+            <p class="column font-thSarabun">เพศ: {{userData.gender}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">วันเกิด: <span id="birth_date"></span></p>
+            <p class="column font-thSarabun">ศาสนา: {{userData.religion}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">เลขบัตรประชาชน: {{userData.national_id}}</p>
+            <p class="column font-thSarabun">โรคประจำตัว: {{userData.diseases}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">อาหารที่แพ้: {{userData.food_allergy}}</p>
+            <p class="column font-thSarabun">ยาที่แพ้: {{userData.medicine_allergy}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">หมู่เลือด: {{userData.blood_group}}</p>
+            <p class="column font-thSarabun">เบอร์โทรศัพท์: {{userData.phone_number}}</p>
+        </div>
+        <div class="one column row">
+            <p class="column font-thSarabun">อีเมล: {{userData.email}}</p>
+        </div>
+    </div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="second">
+    <h2 class="ui header font-FCActive">ข้อมูลผู้ปกครอง</h2>
+    <div class="ui two column grid">
+        <div class="one column row">
+            <p class="column font-thSarabun">ชื่อ - นามสกุลผู้ปกครอง: {{userData.parent_name}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">เบอร์โทรศัพท์ผู้ปกครอง: {{userData.parent_phone_number}}</p>
+            <p class="column font-thSarabun">ผู้ปกครองเกี่ยวข้องเป็น: {{userData.parent_relation}}</p>
+        </div>
+    </div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="third">
+    <h2 class="ui header font-FCActive">ข้อมูลการศึกษา</h2>
+    <div class="ui two column grid">
+        <div class="one column row">
+            <p class="column font-thSarabun">ชื่อโรงเรียน: {{userData.school}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">ระดับชั้น: {{userData.education_level}}</p>
+            <p class="column font-thSarabun">สายการเรียน: {{userData.education_program}}</p>
+        </div>
+        <div class="two column row">
+            <p class="column font-thSarabun">เกรด/GPA : {{userData.gpa}}</p>
+            <p class="column font-thSarabun">ใบปพ. 1:
+                {{#if userData.grade_report_file_name}}
+                <a id="document-download" href="/api/documents/{{userData.grade_report_file_name}}" download><i
+                        class="far fa-file"></i>
+                    Download</a>
+                {{/if}}
+            </p>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="ui bottom attached tab segment" data-tab="fourth">
+    <h2 class="ui header font-FCActive">คำตอบ</h2>
+    <div class="ui segment">
+        <h2 class="ui header font-FCActive">คำถามข้อที่ 1</h2>
+        <p class="font-thSarabun">{{answerData.answer1}}</p>
+    </div>
+    <div class="ui segment">
+        <h2 class="ui header font-FCActive">คำถามข้อที่ 2</h2>
+        <p class="font-thSarabun">{{answerData.answer2}}</p>
+    </div>
+    <div class="ui segment">
+        <h2 class="ui header font-FCActive">คำถามข้อที่ 3</h2>
+        <p class="font-thSarabun">{{answerData.answer3}}</p>
+    </div>
+    <div class="ui segment">
+        <h2 class="ui header font-FCActive">คำถามข้อที่ 4</h2>
+        <p class="font-thSarabun">{{answerData.answer4}}</p>
+    </div>
+    <div class="ui segment">
+        <h2 class="ui header font-FCActive">คำถามข้อที่ 5</h2>
+        <p class="font-thSarabun">{{answerData.answer5}}</p>
+    </div>
+    <div class="ui segment">
+        <h2 class="ui header font-FCActive">คำถามข้อที่ 6</h2>
+        <p class="font-thSarabun">{{answerData.answer6}}</p>
+    </div>
+</div>
+<h4 class="ui dividing header"></h4>
+{{#if dataValid}}
+<form class="ui form" action="/register/{{step}}" method="POST">
+    <button class="ui button" type="submit" name="action" value="prev">Prev</button>
+    <button id="review-submit-button" class="ui primary button" type="submit" name="action">Submit</button>
+</form>
+{{else}}
+<form class="ui form" action="/register/{{step}}" method="POST">
+    <button class="ui button" type="submit" name="action" value="prev">Prev</button>
+    <button id="review-submit-button" class="ui primary button disabled" type="submit" name="action">Submit</button>
+</form>
+{{/if}}
+
+<script>
+
+    $('.menu .item').tab();
+    document.querySelector('#review-submit-button').addEventListener('mouseover', popOneTimeAlert);
+
+    function popOneTimeAlert() {
+        $('.ui.basic.modal').modal('setting', 'closable', false).modal('show');
+        document.querySelector('#review-submit-button').removeEventListener('mouseover', popOneTimeAlert);
+
+    }
+
+    $(document).ready(function () {
+        const date = new Date('{{userData.birth_date}}');
+        $("#birth_date").text(date.toDateString());
+
+        if (document.querySelector('#review-submit-button').classList.contains('disabled')) {
+            $('.ui.basic.modal').modal('setting', 'closable', false).modal('show');
+        }
+    });
+</script>

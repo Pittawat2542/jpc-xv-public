@@ -1,0 +1,101 @@
+<style>
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
+</style>
+<form class="ui form" action="/register/{{step}}" method="POST">
+    <div class="field">
+        <label class="font-FCActive">คำถามข้อที่ 4</label>
+        <p class="font-thSarabun">น้องนึกถึงตอนที่น้องได้พบกับหัวหน้าครั้งแรก ท่านหัวหน้าได้สั่งให้น้องเขียน โปรแกรมภาษาอะไรก็ได้ให้เป็นคำว่า
+            ”JPC XV” เพื่อเป็นการพิสูจน์ตัวเองว่าเหมาะสมกับแก๊งนี้หรือไม่ น้องรำลึกถึงหัวหน้า
+            จึงได้เขียนโปรแกรมนั้นอีกครั้ง (จงเขียนโปรแกรมเพื่อแสดงคำว่า ”JPC XV” ในภาษาใดก็ได้)</p>
+        <textarea name="answer4" placeholder="คำตอบ">{{answerData.answer4}}</textarea>
+    </div>
+    <div class="field">
+        <label class="font-FCActive">คำถามข้อที่ 5</label>
+        <p class="font-thSarabun">ในขณะที่น้องกำลังหลบหนีน้องต้องแบ่งคนขึ้นยานพาหนะให้พอดี เนื่องจากการปล้นของน้องไม่สำเร็จ
+            ทำให้น้องต้องใช้เงินให้ประหยัดที่สุด น้องจึงเลือกที่จะเขียนโปรแกรมเพื่อแบ่งคน N คน ให้ขึ้นยานพาหนะ 3 ประเภท
+        </p>
+        <ol>
+            <li class="font-thSarabun">รถยนต์ขนาด 5 ที่นั่ง</li>
+            <li class="font-thSarabun">รถจักรยานยนต์นั่งได้ 2 คน</li>
+            <li class="font-thSarabun">เจ็ทแพ็คสำหรับ 1 คน</li>
+        </ol>
+        <p class="font-thSarabun">
+            โดยน้องจะต้องใช้ยานพาหนะให้น้อยที่สุดเท่าที่จะเป็นไปได้ (จงเขียนโปรแกรมแสดงจำนวนยานพาหนะในแต่ละประเภทออกมา
+            เพื่อบรรจุคนจำนวน N คน ไปในยานพาหนะ 5 , 2 , 1 ที่นั่ง โดยใช้ยานพาหนะให้น้อยที่สุด)
+        </p>
+        <textarea name="answer5" placeholder="คำตอบ">{{answerData.answer5}}</textarea>
+    </div>
+    <div class="field">
+        <label class="font-FCActive">คำถามข้อที่ 6</label>
+        <p class="font-thSarabun">เนื่องจากน้องเห็นแล้วว่าวิธีการรับคนเข้าแก๊งของหัวหน้าคนเก่านั้นง่ายเกินไป
+            ทำให้มีสายแฝงตัวเข้ามาเป็นสมาชิกแก๊งได้ ในฐานะหัวหน้าแก๊งคนใหม่ น้องจึงได้เปลี่ยนวิธีการเป็น
+            การแสดงรูปนาฬิกาทราย (จงเขียนโปรแกรมแสดงรูป นาฬิกาทราย โดยความสูงของนาฬิกาทราย เป็น N)</p>
+        <div class="ui cards" style="font-family: 'Source Code Pro', monospace;">
+            <div class="card">
+                <div class="content">
+                    <div class="header">Input N = 3</div>
+                    <div class="description">
+                        /*output*/<br>
+                        *****<br>
+&nbsp;*&nbsp;*<br>
+&nbsp;&nbsp;*<br>
+&nbsp;*&nbsp;*<br>
+*****
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <div class="header">Input N = 5</div>
+                    <div class="description">
+                        /*output*/<br>
+                        *********<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;*<br>
+&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+*********
+
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="content">
+                    <div class="header">Input N = 8</div>
+                    <div class="description">
+                        /*output*/<br>
+                        ***************<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br>
+***************
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <textarea name="answer6" placeholder="คำตอบ">{{answerData.answer6}}</textarea>
+    </div>
+    <h4 class="ui dividing header"></h4>
+    <button class="ui button" type="submit" name="action" value="prev">Prev</button>
+    <button class="ui button" type="submit" name="action" value="next">Next</button>
+    <div class="ui error message"></div>
+</form>
+<script src="/assets/js/register-4-validate.js"></script>
+<script>
+    $('.ui.form').form(fieldsValidators);
+</script>

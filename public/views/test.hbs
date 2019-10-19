@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{> analytics }}
+  {{> meta_data }}
+  {{> icon }}
+
+  <!-- Site Properties -->
+  <title>Junior Programmers Camp XV - Test</title>
+  {{> include_libraries }}
+</head>
+
+<body>
+  <!-- Page Contents -->
+  <div class="pusher">
+    <div class="ui vertical stripe segment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <form id="document-form" method="POST" action="/test/submit-form" enctype="multipart/form-data">
+            <label for="">ใบ ปพ.1 (jpg, jpeg, png, pdf ขนาดไม่เกิน 10MB)</label><br>
+            <input type="file" name="document">
+            <button id="submit-doc" class="ui button" type="submit">Upload</button>
+          </form>
+        </div>
+        <div class="row">
+          <form id="search" class="ui form">
+            <div class="field">
+              <label for="id">ID: </label>
+              <input type="text" name="id">
+            </div>
+            <button type="submit">Search</button>
+          </form>
+        </div>
+        <div class="row">
+          <div id="search-result"></div>
+        </div>
+        {{!-- <div class="row">
+          <form id="test1" enctype="multipart/form-data">
+            <input type="text" name="hello">
+            <input type="file" name="picture" id="">
+            <button type="submit">Submit</button>
+          </form>
+        </div> --}}
+        <div class="row">
+          <small>รหัสอ้างอิง: {{userId}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $("#document-form").submit(function (event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      $.ajax({
+        url: '/test/submit-form',
+        method: 'POST',
+        data: formData,
+        contentType: !1,
+        processData: !1,
+        success: function (data, status) {
+          Swal.fire("Good", "Good", "success");
+        },
+        error: function (jqXHR, status, err) {
+          Swal.fire("Bad", jqXHR.responseText, "error");
+        }
+      })
+    })
+    $("#search").submit(function (event) {
+      event.preventDefault();
+      var form = $(this);
+      $.ajax({
+        url: "/test/search",
+        method: "POST",
+        data: form.serialize(),
+        success: function (data, textStatus) {
+          const table = $("<table></table>");
+          table.addClass("ui celled table");
+          const thead = $("<thead></thead>");
+          const headRow = $("<tr></tr>");
+          for (let key in data) {
+            headRow.append($("<th>" + key + "</th>"));
+          }
+          thead.append(headRow);
+          const tbody = $("<tbody></tbody>");
+          const bodyRow = $("<tr></tr>");
+          for (let key in data) {
+            if (key != "grade_report_file_name" && key != "profile_picture_file_name") {
+              bodyRow.append("<td data-label='" + key + "'>" + data[key] + "</td>")
+            } else if (key == "grade_report_file_name") {
+              bodyRow.append("<td data-label='" + key + "'><img class='ui small image' src='/api/documents/" + data[key] + "'></td>");
+            } else if (key == "profile_picture_file_name") {
+              bodyRow.append("<td data-label='" + key + "'><img class='ui small image' src='/api/pictures/" + data[key] + "'></td>");
+            }
+          }
+          tbody.append(bodyRow);
+          table.append(thead);
+          table.append(tbody);
+          const searchResult = $("#search-result");
+          searchResult.append(table);
+        },
+        error: function (jqXHR, textStatus, error) {
+          $("#search-result").text(jqXHR.responseText);
+        }
+      })
+    });
+
+    $("#test1").submit(function (event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      $.ajax({
+        url: "/test",
+        method: "POST",
+        data: formData,
+        processData: !1,
+        contentType: !1,
+        success: function (data, textStatus) {
+          Swal.fire(
+            "อัพโหลดเสร็จสิ้น",
+            "รูปภาพของคุณถูกอัพโหลดขึ้นเครื่องแม่ข่ายแล้ว",
+            "success"
+          );
+        },
+        error: function (jqXHR, textStatus, error) {
+          Swal.fire("พบข้อผิดพลาด", JSON.parse(jqXHR.responseText).error.message, "error");
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+@font-face {
+	font-family: "FCActive";
+	src: url("/assets/fonts/FCActiveRegular.eot?#iefix") format("embedded-opentype"),
+		url(/assets/fonts/FCActiveRegular.woff) format("woff"),
+		url(/assets/fonts/FCActiveRegular.ttf) format("truetype"),
+		url("/assets/fonts/FCActiveRegular.svg#FCActiveRegular") format("svg");
+	font-weight: 400;
+	font-style: normal;
+}
+body {
+	background-color: #232325;
+}
+body > .grid {
+	height: 100%;
+}
+.ui.grid {
+	margin: 0;
+}
+.bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-image: url(/assets/img/login-bg.jpg);
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: cover;
+	filter: brightness(30%);
+}
+.column {
+	max-width: 450px;
+}
+#logo {
+	position: absolute;
+	left: 50%;
+	top: 25%;
+	transform: translate(-50%, -50%) scale(.9);
+}
+
+.button {
+	position: absolute;
+	width: 100%;
+	z-index: 10;
+}
+@media only screen and (min-width: 700px) {
+	.button {
+		transform: scale(1.5);
+	}
+}

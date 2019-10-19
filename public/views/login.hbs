@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {{> analytics }}
+    {{> meta_data }}
+    {{> icon }}
+
+    <!-- Site Properties -->
+    <title>Junior Programmers Camp XV - Login</title>
+    {{> include_libraries }}
+
+    <link rel="stylesheet" href="/assets/css/styles-login.css">
+    {{!-- <script src="/assets/js/scripts-login.js"></script> --}}
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <form class="ui large form" action="/api/auth/facebook" method="POST">
+                <button class="ui fluid large blue submit button" type="submit">Login with Facebook</button>
+            </form>
+        </div>
+    </div>
+    <img class="ui large image" id="logo" src="/assets/img/jpc-logo.png">
+
+</body>
+
+</html>

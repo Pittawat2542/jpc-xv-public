@@ -1,0 +1,84 @@
+<h4 class="ui dividing header font-FCActive">อัพโหลดรูปผู้สมัคร</h4>
+<div class="ui segment">
+    {{#if userData.profile_picture_file_name}}
+    <img id="profile-image" src="/api/pictures/{{userData.profile_picture_file_name}}" alt="User profile"
+        class="ui small image">
+    {{/if}}
+    <form id="picture-form" enctype="multipart/form-data">
+        <label for="">รูปผู้สมัคร (jpg, jpeg, png ขนาดไม่เกิน 5MB)</label><br>
+        <input type="file" name="picture">
+        <button id="submit-pic" class="ui button" type="submit">Upload</button>
+    </form>
+</div>
+<h4 class="ui dividing header font-FCActive">อัพโหลดเอกสาร</h4>
+<div class="ui segment">
+    {{#if userData.grade_report_file_name}}
+    <a id="document-download" href="/api/documents/{{userData.grade_report_file_name}}" download><i
+            class="far fa-file"></i>
+        ดาวน์โหลดไฟล์ล่าสุด</a>
+    {{/if}}
+    <form id="document-form" enctype="multipart/form-data">
+        <label for="">ใบ ปพ.1 (jpg, jpeg, png, pdf ขนาดไม่เกิน 10MB)</label><br>
+        <input type="file" name="document">
+        <button id="submit-doc" class="ui button" type="submit">Upload</button>
+    </form>
+</div>
+
+<form class="ui form" action="/register/{{step}}" method="POST">
+    <h4 class="ui dividing header font-FCActive">ข้อมูลผู้ปกครอง</h4>
+    <div class="two fields">
+        <div class="field">
+            <label class="font-FCActive">ชื่อ - นามสกุลผู้ปกครอง</label>
+            <input type="text" name="parent_name" placeholder="ซีเนียร์ โปรแกรมเมอร์แคมป์"
+                value="{{userData.parent_name}}">
+        </div>
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label class="font-FCActive">เบอร์โทรศัพท์ผู้ปกครอง</label>
+            <input type="text" name="parent_phone_number" placeholder="099-9999-999"
+                value="{{userData.parent_phone_number}}">
+        </div>
+        <div class="field">
+            <label class="font-FCActive">ผู้ปกครองเกี่ยวข้องเป็น</label>
+            <input type="text" name="parent_relation" placeholder="พ่อ" value="{{userData.parent_relation}}">
+        </div>
+    </div>
+    <h4 class="ui dividing header">ข้อมูลการศึกษา</h4>
+    <div class="field">
+        <label class="font-FCActive">ชื่อโรงเรียน</label>
+        <input type="text" name="school" placeholder="โรงเรียนจูเนียร์โปรแกรมเมอร์แคมป์" value="{{userData.school}}">
+    </div>
+    <div class="three fields">
+        <div class="field">
+            <label class="font-FCActive">ระดับชั้น</label>
+            <select class="ui fluid dropdown" name="education_level" value="{{userData.education_level}}">
+                <option value="ม.4" {{#if (eq userData.education_level 'ม.4') }}selected{{/if}}>มัธยมศึกษาปีที่ 4
+                </option>
+                <option value="ม.5" {{#if (eq userData.education_level 'ม.5') }}selected{{/if}}>มัธยมศึกษาปีที่ 5
+                </option>
+                <option value="ม.6" {{#if (eq userData.education_level 'ม.6') }}selected{{/if}}>มัธยมศึกษาปีที่ 6
+                </option>
+            </select>
+        </div>
+        <div class="field">
+            <label class="font-FCActive">สายการเรียน</label>
+            <input type="text" name="education_program" placeholder="เช่น วิทย์-คณิต"
+                value="{{userData.education_program}}">
+        </div>
+        <div class="field">
+            <label class="font-FCActive">เกรด/GPA</label>
+            <input type="text" name="gpa" placeholder="3.00" value="{{userData.gpa}}">
+        </div>
+    </div>
+
+    <h4 class="ui dividing header"></h4>
+    <button class="ui button" type="submit" name="action" value="prev">Prev</button>
+    <button class="ui button" type="submit" name="action" value="next">Next</button>
+    <div class="ui error message"></div>
+</form>
+
+<script src="/assets/js/register-2-validate.js"></script>
+<script>
+    $('.ui.form').form(fieldsValidators);
+</script>

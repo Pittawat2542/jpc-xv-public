@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {{> analytics }}
+    {{> meta_data }}
+    {{> icon }}
+
+    <!-- Site Properties -->
+    <title>Junior Programmers Camp XV</title>
+    {{> include_libraries }}
+
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script src="/assets/js/google-map.js"></script>
+    <script src="/assets/js/scripts.js"></script>
+</head>
+
+<body>
+
+    {{> menu }}
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <div class="ui inverted vertical masthead center aligned segment" id="hero-section">
+            {{> menu_mobile_sidebar }}
+            <div id="particles-js"></div>
+            <div class="ui text container" id="main-container">
+                <div>
+                    <img class="ui large centered image" src="/assets/img/jpc-logo.png">
+                    <span class="glitch-span">
+                        <div class="glitch" data-text="JPC XV">Junior Programmers Camp XV</div>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical stripe segment" id="what-section">
+            <h3 class="ui neon blue center aligned header">WHAT IS</h3>
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="eight wide hidden column">
+                        <div class="what-content">
+                            <p>Junior Programmer Camp คือ ค่ายที่จัดขึ้นสำหรับน้องๆ ในระดับชั้นมัธยมศึกษาตอนปลาย
+                                ทุกสายการเรียน เพื่อให้น้อง ๆ
+                                ได้เข้ามาเรียนรู้ถึงหนทางและองค์ความรู้เพื่อสานตามความฝันการเป็นโปรแกรมเมอร์ในอนาคต
+                                ผ่านการเรียนการสอน และทำกิจกรรมโดยพี่ ๆ นักศึกษาจากสาขาวิชาวิทยาการคอมพิวเตอร์
+                                (หลักสูตรภาษาอังกฤษ) คณะเทคโนโลยีสารสนเทศ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี ตลอด 4
+                                วัน 3
+                                คืน อีกทั้งยังมีกิจกรรมเพื่อความสนุกสนาน และเสริมสร้างความสัมพันธ์อันดีของสมาชิกค่าย
+                                ยิ่งไปกว่านั้นน้อง ๆ จะได้เห็นบรรยากาศการเรียนการสอน และสภาพแวดล้อมของมหาวิทยาลัยอีกด้วย
+                            </p>
+                            <p>โดยค่ายของเราได้นำดำเนินมาถึงครั้งที่ 15 แล้วนะครับน้อง ๆ
+                                และในครั้งนี้น้อง ๆ
+                                จะได้เข้าร่วมกับแก๊งโปรแกรมเมอร์เพื่อผจญภัยไปโลกอนาคตที่ควรจะเป็นที่ที่สวยงาม
+                                แต่ในความเป็นจริงนั้นเรากลับต้องแย่งชิงทรัพยากรที่เหลือน้อยลงทุกทีเพื่อความอยู่รอด
+                                โดยอาศัยความรู้ และความสามารถที่เรามีเพื่อแย่งชิง, แข่งขัน
+                                และสร้างความเป็นใหญ่ในแก๊งของเราเองเพื่อความอยู่รอด...</p>
+                        </div>
+                        <div class="ui equal width grid">
+                            <div class="row">
+                                <div class="column">
+                                    <img class="ui small centered image" src="/assets/img/dataScienceIcon.png">
+                                </div>
+                                <div class="column">
+                                    <img class="ui small centered image" src="/assets/img/ComthinkIcon.png">
+                                </div>
+                                <div class="column">
+                                    <img class="ui small centered image" src="/assets/img/webAppIcon.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="six wide right floated column mobile hidden">
+                        <img src="/assets/img/programming.svg" class="ui large rounded image">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical stripe segment" id="location-section">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="center aligned column">
+                        <h3 class="ui neon lightest-blue header">WHERE</h3>
+                        <p class="text-white">คณะเทคโนโลยีสารสนเทศ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</p>
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical stripe quote segment" id="when-section">
+            <h3 class="ui center aligned neon light-blue header">WHEN</h3>
+            <div class="ui equal width stackable internally celled grid container">
+                <div class="center aligned row">
+                    <div class="column">
+                        <img class="ui centered image" src="/assets/img/register-icon.png">
+                        <h3>เปิดรับสมัคร</h3>
+                        <p>1 June</p>
+                    </div>
+                    <div class="column">
+                        <img class="ui centered image" src="/assets/img/register-end-icon.png">
+                        <h3>ปิดรับสมัคร</h3>
+                        <p>14 June</p>
+                    </div>
+                    <div class="column">
+                        <img class="ui centered image" src="/assets/img/announcement-icon.png">
+                        <h3>ประกาศผลการคัดเลือก</h3>
+                        <p>23 June</p>
+                    </div>
+                    <div class="column">
+                        <img class="ui centered image" src="/assets/img/camp-icon.png">
+                        <h3>วันค่าย</h3>
+                        <p>13-16 July</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical stripe segment" id="faq-section">
+            <div class="ui middle aligned stackable grid container">
+                <div class="center aligned row">
+                    <div class="column">
+                        <h3 class="ui neon pink header">FAQ</h3>
+                        <div class="ui inverted accordion">
+                            <div class="active title">
+                                <p> <i class="dropdown icon"></i>มีค่าใช้จ่ายหรือไม่ ?</p>
+                            </div>
+                            <div class="active content">
+                                <p>มีค่าใช้จ่าย 450 บาท สำหรับการเข้าค่าย เมื่อผ่านการคัดเลือก</p>
+                            </div>
+                            <div class="title">
+                                <p> <i class="dropdown icon"></i>ค่ายจัดขึ้นเมื่อไร ?</p>
+                            </div>
+                            <div class="content">
+                                <p class="transition hidden">จัดขึ้นระหว่าง 13-16 กรกฎาคม 2562</p>
+                            </div>
+                            <div class="title">
+                                <p> <i class="dropdown icon"></i>ค่ายจัดที่ไหน ?</p>
+                            </div>
+                            <div class="content">
+                                <p class="transition hidden">คณะเทคโนโลยีสารสนเทศ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
+                                </p>
+                            </div>
+                            <div class="title">
+                                <p> <i class="dropdown icon"></i>เดินทางมาได้อย่างไรบ้าง ?</p>
+                            </div>
+                            <div class="content">
+                                <p class="transition hidden">1. รถโดยสารประจำทาง
+                                    ** ผ่านหน้ามหาวิทยาลัย
+                                    75 วัดพุทธบูชา-หัวลำโพง
+                                    21 วัดคู่สร้าง-จุฬาลงกรณ์มหาวิทยาลัย
+                                    ** ไม่ผ่านหน้ามหาวิทยาลัย แต่สามารถมาถึงได้
+                                    142 การเคหะ ชุมชนธนบุรี - อู่ฟาร์มจระเข้ (สมุทรปราการ)
+                                    141 แสมดำ - จุฬาลงกรณ์มหาวิทยาลัย
+                                    140 อนุสาวรีย์ชัยฯ - แสมดำ
+                                    138 พระประแดง - หมอชิตใหม่
+                                    82 พระประแดง - สนามหลวง
+                                    20 สุขสวัสดิ์ - ท่าดินแดง
+                                    6 พระประแดง - เทเวศร์
+                                </p>
+                                <p class="transition hidden">
+                                    2. รถไฟฟ้า BTS
+                                    สถานีสะพานตากสิน ทางออก 3 ขึ้นรถฝั่งตรงข้ามโรบินสัน
+                                    75 ลงหน้ามหาวิทยาลัย
+                                    สถานีวงเวียนใหญ่ ทางออก 2
+                                    120 57 ลงดาวคะนอง
+                                    75 21 ลงหน้ามหาวิทยาลัย
+                                </p>
+                                <p class="transition hidden">3. รถกระป๋อง (รถโดยสารขนาดเล็ก)
+                                    99 บางประกอก – ทุ่งครุ
+                                    88 บิ๊กซี (บางประกอก) – ทุ่งครุ
+                                    77 บิ๊กซี (ราษฏร์บูรณะ) – วันพุทธบูชา</p>
+                                <p class="transition hidden">4. รถส่วนตัว</p>
+                                <p class="transition hidden">5. เส้นทางอื่นๆ
+                                    จากอนุสาวรีย์ชัยสมรภูมิ
+                                    รถประจำทางสาย 140 ลงใต้ทางด่วน กม.9 -->สองแถว , รถจักรยานยนต์ , taxi
+                                    จากสถานีขนส่งหมอชิต2
+                                    รถประจำทางสาย 138 ลงใต้ทางด่วน กม.9 -->สองแถว , รถจักรยานยนต์ , taxi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui inverted vertical stripe segment" id="sponsor-section">
+            <h1 class="ui center aligned neon purple header">Sponsor</h1>
+            <div class="ui middle aligned equal width stackable grid container">
+                <div class="row">
+                    <div class="center middle aligned column">
+                        <img src="/assets/img/kmutt-logo.png" class="ui small centered image">
+                    </div>
+                    <div class="center middle aligned column">
+                        <img src="/assets/img/sit-logo.png" class="ui medium centered image">
+                    </div>
+                    <div class="center middle aligned column">
+                        <img src="/assets/img/KS-logo.png" class="ui small centered image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{> footer }}
+    </div>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key={{GOOGLE_MAP_API_KEY}}&libraries=places&callback=initMap"></script>
+    </script>
+    <script src="/assets/js/particle-loader.js"></script>
+</body>
+
+</html>

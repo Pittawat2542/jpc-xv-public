@@ -1,0 +1,125 @@
+<form class="ui form" action="/register/{{step}}" method="POST">
+    <h4 class="ui dividing header font-FCActive">ข้อมูลทั่วไป</h4>
+    <div class="field">
+        <div class="two fields">
+            <div class="field">
+                <label class="font-FCActive">ชื่อ</label>
+                <input type="text" name="th_first_name" placeholder="จูเนียร์" value="{{userData.th_first_name}}">
+            </div>
+            <div class="field">
+                <label class="font-FCActive">นามสกุล</label>
+                <input type="text" name="th_last_name" placeholder="โปรแกรมเมอร์แคมป์"
+                    value="{{userData.th_last_name}}">
+            </div>
+        </div>
+    </div>
+    <div class="field">
+        <div class="two fields">
+            <div class="field">
+                <label class="font-FCActive">ชื่อ (ภาษาอังกฤษ)</label>
+                <input type="text" name="en_first_name" placeholder="Junior" value="{{userData.en_first_name}}">
+            </div>
+            <div class="field">
+                <label class="font-FCActive">นามสกุล (ภาษาอังกฤษ)</label>
+                <input type="text" name="en_last_name" placeholder="Programmer camp" value="{{userData.en_last_name}}">
+            </div>
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label class="font-FCActive">ชื่อเล่น</label>
+            <input type="text" name="nick_name" placeholder="เจพีซี" value="{{userData.nick_name}}">
+        </div>
+        <div class="field">
+            <label class="font-FCActive">เพศ</label>
+            <select class="ui fluid dropdown" name="gender" value="{{userData.gender}}">
+                <option value="ชาย" {{#if (eq userData.gender 'ชาย') }}selected{{/if}}>ชาย</option>
+                <option value="หญิง" {{#if (eq userData.gender 'หญิง') }}selected{{/if}}>หญิง</option>
+            </select>
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <div class="field ui calendar">
+                <label class="font-FCActive">วันเกิด</label>
+                <div class="ui input left icon">
+                    <i class="calendar icon"></i>
+                    <input type="text" placeholder="วันเกิด" name="birth_date" value="{{userData.birth_date}}">
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label class="font-FCActive">ศาสนา</label>
+            <select class="ui fluid dropdown" name="religion" value="{{userData.religion}}">
+                <option value="พุทธศาสนา" {{#if (eq userData.religion 'พุทธศาสนา') }}selected{{/if}}>พุทธศาสนา</option>
+                <option value="คริสต์ศาสนา" {{#if (eq userData.religion 'คริสต์ศาสนา') }}selected{{/if}}>คริสต์ศาสนา
+                </option>
+                <option value="อิสลาม" {{#if (eq userData.religion 'อิสลาม') }}selected{{/if}}>อิสลาม</option>
+                <option value="พราหมณ์" {{#if (eq userData.religion 'พราหมณ์') }}selected{{/if}}>พราหมณ์</option>
+                <option value="ฮินดู" {{#if (eq userData.religion 'ฮินดู') }}selected{{/if}}>ฮินดู</option>
+                <option value="ซิกข์" {{#if (eq userData.religion 'ซิกข์') }}selected{{/if}}>ซิกข์</option>
+                <option value="เซน" {{#if (eq userData.religion 'เซน') }}selected{{/if}}>เซน</option>
+                <option value="ไม่นับถือศาสนา" {{#if (eq userData.religion 'ไม่นับถือศาสนา') }}selected{{/if}}>
+                    ไม่นับถือศาสนา</option>
+                <option value="ไม่ระบุ" {{#if (eq userData.religion 'ไม่ระบุ') }}selected{{/if}}>ไม่ระบุ</option>
+                <option value="อื่น ๆ" {{#if (eq userData.religion 'อื่น ๆ') }}selected{{/if}}>อื่น ๆ</option>
+            </select>
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label class="font-FCActive">เลขบัตรประชาชน</label>
+            <input type="text" name="national_id" placeholder="1-2345-67891-23-4" value="{{userData.national_id}}">
+        </div>
+        <div class="field">
+            <label class="font-FCActive">โรคประจำตัว</label>
+            <input type="text" name="diseases" placeholder="โรคประจำตัว" value="{{userData.diseases}}">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label class="font-FCActive">อาหารที่แพ้</label>
+            <input type="text" name="food_allergy" placeholder="อาการที่แพ้" value="{{userData.food_allergy}}">
+        </div>
+        <div class="field">
+            <label class="font-FCActive">ยาที่แพ้</label>
+            <input type="text" name="medicine_allergy" placeholder="ยาที่แพ้" value="{{userData.medicine_allergy}}">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label class="font-FCActive">หมู่เลือด</label>
+            <select class="ui fluid dropdown" name="blood_group" value="{{userData.blood_group}}">
+                <option value="A" {{#if (eq userData.blood_group 'A') }}selected{{/if}}>A</option>
+                <option value="B" {{#if (eq userData.blood_group 'B') }}selected{{/if}}>B</option>
+                <option value="AB" {{#if (eq userData.blood_group 'AB') }}selected{{/if}}>AB</option>
+                <option value="O" {{#if (eq userData.blood_group 'O') }}selected{{/if}}>O</option>
+                <option value="ไม่ทราบ" {{#if (eq userData.blood_group 'ไม่ทราบ') }}selected{{/if}}>ไม่ทราบ</option>
+            </select>
+        </div>
+        <div class="field">
+            <label class="font-FCActive">เบอร์โทรศัพท์</label>
+            <input type="text" name="phone_number" placeholder="099-9999-999" value="{{userData.phone_number}}">
+        </div>
+    </div>
+    <div class="field">
+        <label class="font-FCActive">อีเมล</label>
+        <input type="email" name="email" placeholder="jpc15@sit.kmutt.ac.th" value="{{userData.email}}">
+    </div>
+    <h4 class="ui dividing header"></h4>
+    <button class="ui button" type="submit" name="action" value="next" type="submit">Next</button>
+    <div class="ui error message"></div>
+</form>
+
+<script src="/assets/js/register-1-validate.js"></script>
+
+<script>
+    $('.ui.calendar').calendar({
+        type: 'date',
+        initialDate: new Date("{{dateFormatted}}")
+    });
+</script>
+<script src="/assets/js/register-1-validate.js"></script>
+<script>
+    $('.ui.form').form(fieldsValidators);
+</script>

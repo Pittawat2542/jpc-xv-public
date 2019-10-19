@@ -1,0 +1,15 @@
+<div class="ui container">
+    <div class="ui large secondary inverted pointing menu sticky">
+        <a style="padding: 0" class="toc item register-inline-block" href="/" ><img class="ui tiny image" src="/assets/img/jpc-logo.png"  alt="JPC Logo"></a>
+        <a style="padding: 0" class="item register-inline-block" href="/"><img class="ui tiny image" src="/assets/img/jpc-logo.png" alt="JPC Logo"></a>
+        <div class="right item">
+            {{#if user}}
+            <div class="ui inverted">
+                <form class="ui large form" action="/api/auth/facebook/logout" method="POST">
+                    <button style="position: relative;top: -10px;" class="ui inverted negative submit button" type="submit">ออกจากระบบ</but>
+                </form>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

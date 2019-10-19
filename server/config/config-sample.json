@@ -1,0 +1,26 @@
+{
+  "test": {
+    "HOST_URL": "",
+    "PORT": 3000,
+    "DB_HOST": "",
+    "DB_USER": "",
+    "DB_PASSWORD": "",
+    "DB_DATABASE": "",
+    "GOOGLE_MAP_API_KEY": "",
+    "FACEBOOK_APP_ID": "",
+    "FACEBOOK_APP_SECRET": "",
+    "FACEBOOK_CALLBACK_URL": ""
+  },
+  "development": {
+    "HOST_URL": "",
+    "PORT": 3000,
+    "DB_HOST": "",
+    "DB_USER": "",
+    "DB_PASSWORD": "",
+    "DB_DATABASE": "",
+    "GOOGLE_MAP_API_KEY": "",
+    "FACEBOOK_APP_ID": "",
+    "FACEBOOK_APP_SECRET": "",
+    "FACEBOOK_CALLBACK_URL": ""
+  }
+}

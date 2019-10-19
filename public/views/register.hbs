@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {{> analytics }}
+    {{> meta_data }}
+    {{> icon }}
+
+    <!-- Site Properties -->
+    <title>Junior Programmers Camp XV - Register</title>
+    {{> include_libraries }}
+
+    <link rel="stylesheet" href="/assets/css/styles-register.css">
+    <script src="/assets/js/scripts-register.js"></script>
+</head>
+
+<body>
+
+    {{> menu_register }}
+
+
+    <!-- Page Contents -->
+    <div class="pusher">
+        <div class="ui inverted vertical center aligned segment register-sticky">
+
+            {{> menu_mobile_register }}
+            <br>
+            {{!-- <div class="ui text container">
+                <img class="ui image" src="/assets/img/jpc-logo.png" alt="">
+            </div> --}}
+
+        </div>
+
+        <div class="ui vertical stripe segment font-thSarabun" id="register-content">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div id="step-bar" class="center aligned column">
+                        <div class="ui ordered steps">
+                            {{#if (eq step '1')}}
+                            <div class="active step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 1</div>
+                                    <div class="description font-thSarabun">ข้อมูลส่วนตัว</div>
+                                </div>
+                            </div>
+                            {{else}}
+                            <a class="step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 1</div>
+                                    <div class="description font-thSarabun">ข้อมูลส่วนตัว</div>
+                                </div>
+                            </a>
+                            {{/if}}
+
+                            {{#if (eq step '2')}}
+                            <div class="active step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 2</div>
+                                    <div class="description font-thSarabun">ข้อมูลผู้ปกครองและ ข้อมูลการศึกษา</div>
+                                </div>
+                            </div>
+                            {{else}}
+                            <a class="step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 2</div>
+                                    <div class="description font-thSarabun">ข้อมูลผู้ปกครองและ ข้อมูลการศึกษา</div>
+                                </div>
+                            </a>
+                            {{/if}}
+
+                            {{#if (eq step '3')}}
+                            <div class="active step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 3</div>
+                                    <div class="description font-thSarabun">คำถามชุดที่ 1</div>
+                                </div>
+                            </div>
+                            {{else}}
+                            <a class="step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 3</div>
+                                    <div class="description font-thSarabun">คำถามชุดที่ 1</div>
+                                </div>
+                            </a>
+                            {{/if}}
+                            {{#if (eq step '4')}}
+                            <div class="active step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 4</div>
+                                    <div class="description font-thSarabun">คำถามชุดที่ 2</div>
+                                </div>
+                            </div>
+                            {{else}}
+                            <a class="step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 4</div>
+                                    <div class="description font-thSarabun">คำถามชุดที่ 2</div>
+                                </div>
+                            </a>
+                            {{/if}}
+                            {{#if (eq step 'review')}}
+                            <div class="active step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 5</div>
+                                    <div class="description font-thSarabun">ตรวจสอบความถูกต้องของข้อมูล</div>
+                                </div>
+                            </div>
+                            {{else}}
+                            <a class="step">
+                                <div class="content">
+                                    <div class="title font-FCActive">ขั้นตอนที่ 5</div>
+                                    <div class="description font-thSarabun">ตรวจสอบความถูกต้องของข้อมูล</div>
+                                </div>
+                            </a>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        {{#if (eq step '1')}}
+                        {{> register_steps/register_step1 }}
+                        {{/if}}
+                        {{#if (eq step '2')}}
+                        {{> register_steps/register_step2 }}
+                        {{/if}}
+                        {{#if (eq step '3')}}
+                        {{> register_steps/register_step3 }}
+                        {{/if}}
+                        {{#if (eq step '4')}}
+                        {{> register_steps/register_step4 }}
+                        {{/if}}
+                        {{#if (eq step 'review')}}
+                        {{> register_steps/register_step_review }}
+                        {{/if}}
+                        {{#if (eq step 'complete')}}
+                        {{> register_steps/register_step_complete }}
+                        {{/if}}
+
+                    </div>
+                </div>
+                <hr style="width: 100%">
+                <div class="row">
+                    <small>รหัสอ้างอิง: {{userId}}</small>
+                </div>
+            </div>
+        </div>
+
+        {{> footer }}
+    </div>
+    <script src="/assets/js/form-input-pattern.js"></script>
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var navbar = document.getElementById("register-nav");
+        var sticky = navbar.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                navbar.classList.add("sticky");
+                navbar.classList.remove("hidden");
+            } else {
+                navbar.classList.remove("sticky");
+                navbar.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+
+</html>
