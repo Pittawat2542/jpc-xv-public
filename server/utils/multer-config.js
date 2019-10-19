@@ -1,7 +1,6 @@
 const path = require("path");
 const multer = require("multer");
 
-// multer configuration
 const storageForPicture = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, path.join(__dirname, "../uploads/pictures/"));
@@ -22,6 +21,21 @@ const storageForDocument = multer.diskStorage({
     callback(
       null,
       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  }
+});
+
+const storageForVerificationPicture = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, path.join(__dirname, "../uploads/pictures/verifications/"));
+  },
+  filename: (req, file, callback) => {
+    callback(
+      null,
+      file.fieldname +
+        "-verification-" +
+        Date.now() +
+        path.extname(file.originalname)
     );
   }
 });
@@ -69,7 +83,16 @@ const uploadDocument = multer({
   }
 }).single("document");
 
+const uploadVerificationPicture = multer({
+  storage: storageForVerificationPicture,
+  fileFilter: fileFilterForPicture,
+  limits: {
+    fileSize: 5 * 1024 * 1024
+  }
+}).single("verification_proof");
+
 module.exports = {
   uploadPicture,
-  uploadDocument
+  uploadDocument,
+  uploadVerificationPicture
 };

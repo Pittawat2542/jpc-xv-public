@@ -1,0 +1,55 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" href="/assets/css/styles-staff.css">
+<script src="/assets/js/scripts-staff.js"></script>
+</head>
+
+<body>
+    <%- include('includes/staff/menu-staff') %>
+    <section class="pusher">
+        <%- include('includes/staff/menu-mobile-staff') %>
+
+
+        
+        <div class="ui vertical stripe segment font-thSarabun" id="register-content">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="column">
+                        <div class="ui center aligned segment" id="complete-segment">
+                            <i class="fas fa-check-circle"></i>
+                            <h1 class="font-FCActive" >ตรวจคำตอบข้อที่ staff role เสร็จสิ้น</h1>
+                            <br>
+                            <i class="fas fa-desktop bounce ml-1"></i>
+                            <i class="fas fa-tasks bounce1 ml-1"></i>
+                            <i class="fas fa-suitcase-rolling bounce ml-1"> </i>
+                            <br>
+                            <br>
+                            <div class="mt-2"><a href="/staff/all">กลับไปหน้าแรก</a></div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="width: 100%;">
+                <br>
+            </div>
+        </div>
+    </section>
+    <%- include('includes/footer') %>
+
+    <script>
+        window.onscroll = function () { registerNavbar() };
+        var navbar = document.getElementById("register-nav");
+        var sticky = navbar.offsetTop + 25;
+
+        function registerNavbar() {
+            if (window.pageYOffset > sticky) {
+                navbar.classList.add("sticky");
+                navbar.classList.remove("hidden");
+            } else {
+                navbar.classList.remove("sticky");
+                navbar.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -17,23 +17,8 @@ body > .grid {
 	background-size: cover;
 	filter: brightness(30%);
 }
-.column {
-	max-width: 450px;
-}
-#logo {
-	position: absolute;
-	left: 50%;
-	top: 25%;
-	transform: translate(-50%, -50%) scale(.9);
-}
-
-.button {
-	position: absolute;
-	width: 100%;
-	z-index: 10;
-}
-@media only screen and (min-width: 700px) {
-	.button {
-		transform: scale(1.5);
-	}
+.complete.header {
+	color: white !important;
+	font-family: Sarabun, sans-serif !important;
+	font-size: 5em !important;
 }

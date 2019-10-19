@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Copy file ```config-sample.json``` in ```server/config``` and rename the copied one to ```config.json```.
 
-Create folder ```server/uploads/pictures``` and ```server/uploads/documents```.
+Create folder ```server/uploads/pictures```, ```server/uploads/pictures/verifications```, and ```server/uploads/documents```.
 
 Clone the project and run the script to install all dependencies.
 
@@ -49,6 +49,10 @@ Change directory back to the project
 ```
 cd ..
 ```
+
+To fully use all funcitonalities of the system, add user_id to grantedList in ```server/middlewares/auth.js``` on ```isAdmin``` and ```isStaff``` functions.
+
+To fully activate the grading system, goto ```/admin/activate``` to activate operations that necessary to grading system.
 
 Start the project with
 

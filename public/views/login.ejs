@@ -1,0 +1,19 @@
+<%- include('includes/header') %>
+
+    <link rel="stylesheet" href="/assets/css/styles-login.css">
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <form class="ui large form" action="/api/auth/facebook" method="POST">
+                <button class="ui fluid large blue submit button" type="submit">Login with Facebook</button>
+            </form>
+        </div>
+    </div>
+    <img class="ui large image" id="logo" src="/assets/img/jpc-logo.png">
+
+</body>
+
+</html>

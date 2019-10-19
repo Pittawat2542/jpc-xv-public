@@ -1,0 +1,853 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" href="/assets/css/styles-staff.css">
+<script src="/assets/js/scripts-staff.js"></script>
+</head>
+
+<body>
+    <%- include('includes/staff/menu-staff') %>
+    <section class="pusher">
+        <%- include('includes/staff/menu-mobile-staff') %>
+
+        <div class="ui vertical stripe segment font-thSarabun" id="register-content">
+            <div class="ui middle aligned container" style="margin-bottom: 6.5rem;">
+                <div class="row">
+                    <div class="column">
+                        <div class="ui right aligned basic segment">
+                            <h1 class="font-FCActive" style="font-size: 2rem !important; font-weight: bold;">ตัวจริง <%= passedUsers.length %>/64</h1>
+                            <h2 class="ui dividing header font-FCActive">ตัวสำรอง <%= substitueUsers.length %>/5</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <h1>Passed (<%= passedUsers.length %>/64)</h1>
+                <hr>
+                <% passedUsers.forEach(user => { %>
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="column">
+                            <div class="ui horizontal card" style="margin-right: 0;width: 100%;">
+                                <div>
+                                    <img class="ui small image" src="/api/pictures/<%= user.info.profile_picture_file_name %>">
+                                </div>
+                                <div class="content">
+                                    <div class="description">
+                                        <h4><strong>ID:</strong> <%= user.info.id %></h4>
+                                        <p><strong>Name:</strong> <%= user.info.th_first_name %> <%= user.info.th_last_name %></p>
+                                        <p><strong>Total Score (1-5 Weighted):</strong> <%= user.total_score %>/100</p>
+                                        <p><strong>Score 6:</strong> <%= user.score6 %>/20</p>
+                                        <p><strong>Current Status:</strong> <%= user.status === 1 ? 'Passed' : 'Substitue' %></p>
+                                        <button class="ui button" id="<%= user.info.id %>-modal" onclick="showInfo(this)"
+                                            style="margin-bottom: 0.5rem;">Show info</button>
+                                    </div>
+                                    <form id="camper-form" class="ui form" action="/staff/all" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.info.id %>">
+                                        <textarea name="additional_note" cols="30" rows="10"><%= user.additional_note %></textarea>
+                                        <% if (user.status === 1) { %>
+                                            <button class="ui button yellow" name="status" value="substitue">SUBSTITUE</button>
+                                        <% } else { %>
+                                            <button class="ui button green" name="status" value="passed">PASSED</button>
+                                        <% } %>
+                                        <button class="ui button red" name="status" value="reject">REJECT</button>
+                                        <button class="ui button" name="status" value="uncheck">UNCHECK</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui modal <%= user.info.id %>-modal ">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        User ID : <%= user.info.id %>
+                    </div>
+                    <div class="scrolling content">
+                        <div class="description">
+                            <div class="ui top attached tabular menu font-FCActive" id="review-tap">
+                                <a class="item active" data-tab="first">ข้อมูลทั่วไป</a>
+                                <a class="item" data-tab="second">ข้อมูลผู้ปกครอง</a>
+                                <a class="item" data-tab="third">ข้อมูลการศึกษา</a>
+                                <a class="item" data-tab="fourth">คำตอบ</a>
+                            </div>
+                            <div class="ui bottom attached tab segment active" data-tab="first">
+                                <h2 class="ui header font-FCActive">ข้อมูลทั่วไป</h2>
+                                <img src="/api/pictures/<%= user.info.profile_picture_file_name %>" alt="User profile"
+                                    class="ui small image centered">
+                                <br>
+                                <div class="ui four column grid">
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาไทย): <%= user.info.th_first_name %></p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาไทย): <%= user.info.th_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาอังกฤษ): <%= user.info.en_first_name %>
+                                        </p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาอังกฤษ): <%= user.info.en_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อเล่น: <%= user.info.nick_name %></p>
+                                        <p class="column font-thSarabun">เพศ: <%= user.info.gender %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">วันเกิด: <%= user.info.birth_date %></p>
+                                        <p class="column font-thSarabun">ศาสนา: <%= user.info.religion %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เลขบัตรประชาชน: <%= user.info.national_id %></p>
+                                        <p class="column font-thSarabun">โรคประจำตัว: <%= user.info.diseases %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">อาหารที่แพ้: <%= user.info.food_allergy %></p>
+                                        <p class="column font-thSarabun">ยาที่แพ้: <%= user.info.medicine_allergy %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">หมู่เลือด: <%= user.info.blood_group %></p>
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์: <%= user.info.phone_number %></p>
+                                    </div>
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">อีเมล: <%= user.info.email %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="second">
+                                <h2 class="ui header font-FCActive">ข้อมูลผู้ปกครอง</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อ - นามสกุลผู้ปกครอง:
+                                            <%= user.info.parent_name %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์ผู้ปกครอง:
+                                            <%= user.info.parent_phone_number %></p>
+                                        <p class="column font-thSarabun">ผู้ปกครองเกี่ยวข้องเป็น:
+                                            <%= user.info.parent_relation %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="third">
+                                <h2 class="ui header font-FCActive">ข้อมูลการศึกษา</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อโรงเรียน: <%= user.info.school %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ระดับชั้น: <%= user.info.education_level %></p>
+                                        <p class="column font-thSarabun">สายการเรียน: <%= user.info.education_program %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เกรด/GPA : <%= user.info.gpa %></p>
+                                        <p class="column font-thSarabun">ใบปพ. 1:
+                                            <% if (user.info.grade_report_file_name.split('.')[1] === 'pdf') { %>
+                                                <object data="/api/documents/<%= user.info.grade_report_file_name %>" type='application/pdf' width='100%' height='100%'>
+                                                    <p>
+                                                        <a href="/api/documents/<%= user.info.grade_report_file_name %>">Download</a>
+                                                    </p>
+                                                </object>
+                                            <% } else { %>
+                                                <img class="img-fluid" src="/api/documents/<%= user.info.grade_report_file_name %>">
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="fourth">
+                                <h2 class="ui header font-FCActive">คำตอบ</h2>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 1 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score1 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer1 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="1">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 2 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score2 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer2 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="2">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 3 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score3 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer3 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="3">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 4 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score4 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer4 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="4">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 5 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score5 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer5 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="5">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 6 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score6 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer6 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="6">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <form class="ui form" action="/staff/all" method="POST">
+                            <% if (user.status === 1) { %>
+                                <button class="ui button yellow" name="status" value="substitue">SUBSTITUE</button>
+                            <% } else { %>
+                                <button class="ui button green" name="status" value="passed">PASSED</button>
+                            <% } %>
+                            <button class="ui button red" name="status" value="reject">REJECT</button>
+                            <button class="ui button" name="status" value="uncheck">UNCHECK</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+
+                <h1>Substitue (<%= substitueUsers.length %>/5)</h1>
+                <% substitueUsers.forEach(user => { %>
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="column">
+                            <div class="ui horizontal card" style="margin-right: 0;width: 100%;">
+                                <div>
+                                    <img class="ui small image" src="/api/pictures/<%= user.info.profile_picture_file_name %>">
+                                </div>
+                                <div class="content">
+                                    <div class="description">
+                                        <h4><strong>ID:</strong> <%= user.info.id %></h4>
+                                        <p><strong>Name:</strong> <%= user.info.th_first_name %> <%= user.info.th_last_name %></p>
+                                        <p><strong>Total Score (1-5 Weighted):</strong> <%= user.total_score %>/100</p>
+                                        <p><strong>Score 6:</strong> <%= user.score6 %>/20</p>
+                                        <p><strong>Current Status:</strong> <%= user.status === 1 ? 'Passed' : 'Substitue' %></p>
+                                        <button class="ui button" id="<%= user.info.id %>-modal" onclick="showInfo(this)"
+                                            style="margin-bottom: 0.5rem;">Show info</button>
+                                    </div>
+                                    <form class="ui form" action="/staff/all" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.info.id %>">
+                                        <textarea name="additional_note" cols="30" rows="10"><%= user.additional_note %></textarea>
+                                        <% if (user.status === 1) { %>
+                                            <button class="ui button yellow" name="status" value="substitue">SUBSTITUE</button>
+                                        <% } else { %>
+                                            <button class="ui button green" name="status" value="passed">PASSED</button>
+                                        <% } %>
+                                        <button class="ui button red" name="status" value="reject">REJECT</button>
+                                        <button class="ui button" name="status" value="uncheck">UNCHECK</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui modal <%= user.info.id %>-modal ">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        User ID : <%= user.info.id %>
+                    </div>
+                    <div class="scrolling content">
+                        <div class="description">
+                            <div class="ui top attached tabular menu font-FCActive" id="review-tap">
+                                <a class="item active" data-tab="first">ข้อมูลทั่วไป</a>
+                                <a class="item" data-tab="second">ข้อมูลผู้ปกครอง</a>
+                                <a class="item" data-tab="third">ข้อมูลการศึกษา</a>
+                                <a class="item" data-tab="fourth">คำตอบ</a>
+                            </div>
+                            <div class="ui bottom attached tab segment active" data-tab="first">
+                                <h2 class="ui header font-FCActive">ข้อมูลทั่วไป</h2>
+                                <img src="/api/pictures/<%= user.info.profile_picture_file_name %>" alt="User profile"
+                                    class="ui small image centered">
+                                <br>
+                                <div class="ui four column grid">
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาไทย): <%= user.info.th_first_name %></p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาไทย): <%= user.info.th_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาอังกฤษ): <%= user.info.en_first_name %>
+                                        </p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาอังกฤษ): <%= user.info.en_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อเล่น: <%= user.info.nick_name %></p>
+                                        <p class="column font-thSarabun">เพศ: <%= user.info.gender %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">วันเกิด: <%= user.info.birth_date %></p>
+                                        <p class="column font-thSarabun">ศาสนา: <%= user.info.religion %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เลขบัตรประชาชน: <%= user.info.national_id %></p>
+                                        <p class="column font-thSarabun">โรคประจำตัว: <%= user.info.diseases %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">อาหารที่แพ้: <%= user.info.food_allergy %></p>
+                                        <p class="column font-thSarabun">ยาที่แพ้: <%= user.info.medicine_allergy %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">หมู่เลือด: <%= user.info.blood_group %></p>
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์: <%= user.info.phone_number %></p>
+                                    </div>
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">อีเมล: <%= user.info.email %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="second">
+                                <h2 class="ui header font-FCActive">ข้อมูลผู้ปกครอง</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อ - นามสกุลผู้ปกครอง:
+                                            <%= user.info.parent_name %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์ผู้ปกครอง:
+                                            <%= user.info.parent_phone_number %></p>
+                                        <p class="column font-thSarabun">ผู้ปกครองเกี่ยวข้องเป็น:
+                                            <%= user.info.parent_relation %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="third">
+                                <h2 class="ui header font-FCActive">ข้อมูลการศึกษา</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อโรงเรียน: <%= user.info.school %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ระดับชั้น: <%= user.info.education_level %></p>
+                                        <p class="column font-thSarabun">สายการเรียน: <%= user.info.education_program %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เกรด/GPA : <%= user.info.gpa %></p>
+                                        <p class="column font-thSarabun">ใบปพ. 1:
+                                            <% if (user.info.grade_report_file_name.split('.')[1] === 'pdf') { %>
+                                                <object data="/api/documents/<%= user.info.grade_report_file_name %>" type='application/pdf' width='100%' height='100%'>
+                                                    <p>
+                                                        <a href="/api/documents/<%= user.info.grade_report_file_name %>">Download</a>
+                                                    </p>
+                                                </object>
+                                            <% } else { %>
+                                                <img class="img-fluid" src="/api/documents/<%= user.info.grade_report_file_name %>">
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="fourth">
+                                <h2 class="ui header font-FCActive">คำตอบ</h2>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 1 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score1 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer1 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="1">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 2 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score2 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer2 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="2">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 3 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score3 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer3 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="3">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 4 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score4 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer4 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="4">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 5 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score5 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer5 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="5">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 6 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score6 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer6 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="6">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <form class="ui form" action="/staff/all" method="POST">
+                            <% if (user.status === 1) { %>
+                                <button class="ui button yellow" name="status" value="substitue">SUBSTITUE</button>
+                            <% } else { %>
+                                <button class="ui button green" name="status" value="passed">PASSED</button>
+                            <% } %>
+                            <button class="ui button red" name="status" value="reject">REJECT</button>
+                            <button class="ui button" name="status" value="uncheck">UNCHECK</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+                <hr>
+
+                <h1>Uncheck (<%= users.length %>)</h1>
+                <hr>
+                <% users.forEach(user => { %>
+                <div class="row" style="margin-bottom: 1rem;">
+                    <div class="column">
+                        <div class="ui horizontal card" style="margin-right: 0;width: 100%;">
+                            <div>
+                                <img class="ui small image" src="/api/pictures/<%= user.info.profile_picture_file_name %>">
+                            </div>
+                            <div class="content">
+                                <div class="description">
+                                    <h4><strong>ID:</strong> <%= user.info.id %></h4>
+                                    <p><strong>Name:</strong> <%= user.info.th_first_name %> <%= user.info.th_last_name %></p>
+                                    <p><strong>Total Score (1-5 Weighted):</strong> <%= user.total_score %>/100</p>
+                                    <p><strong>Score 6:</strong> <%= user.score6 %>/20</p>
+                                    <button class="ui button" id="<%= user.info.id %>-modal" onclick="showInfo(this)"
+                                        style="margin-bottom: 0.5rem;">Show info</button>
+                                </div>
+                                <form class="ui form"  method="POST">
+                                    <input type="hidden" name="user_id" value="<%= user.info.id %>">
+                                    <textarea name="additional_note" cols="30" rows="10" style="margin-bottom: 1rem;"><%= user.additional_note %></textarea>
+                                    <button class="ui button green" name="status" value="passed">PASSED</button>
+                                    <button class="ui button yellow" name="status" value="substitue">SUBSTITUE</button>
+                                    <button class="ui button red" name="status" value="reject">REJECT</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui modal <%= user.info.id %>-modal ">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        User ID : <%= user.info.id %>
+                    </div>
+                    <div class="scrolling content">
+                        <div class="description">
+                            <div class="ui top attached tabular menu font-FCActive" id="review-tap">
+                                <a class="item active" data-tab="first">ข้อมูลทั่วไป</a>
+                                <a class="item" data-tab="second">ข้อมูลผู้ปกครอง</a>
+                                <a class="item" data-tab="third">ข้อมูลการศึกษา</a>
+                                <a class="item" data-tab="fourth">คำตอบ</a>
+                            </div>
+                            <div class="ui bottom attached tab segment active" data-tab="first">
+                                <h2 class="ui header font-FCActive">ข้อมูลทั่วไป</h2>
+                                <img src="/api/pictures/<%= user.info.profile_picture_file_name %>" alt="User profile"
+                                    class="ui small image centered">
+                                <br>
+                                <div class="ui four column grid">
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาไทย): <%= user.info.th_first_name %></p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาไทย): <%= user.info.th_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาอังกฤษ): <%= user.info.en_first_name %>
+                                        </p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาอังกฤษ): <%= user.info.en_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อเล่น: <%= user.info.nick_name %></p>
+                                        <p class="column font-thSarabun">เพศ: <%= user.info.gender %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">วันเกิด: <%= user.info.birth_date %></p>
+                                        <p class="column font-thSarabun">ศาสนา: <%= user.info.religion %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เลขบัตรประชาชน: <%= user.info.national_id %></p>
+                                        <p class="column font-thSarabun">โรคประจำตัว: <%= user.info.diseases %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">อาหารที่แพ้: <%= user.info.food_allergy %></p>
+                                        <p class="column font-thSarabun">ยาที่แพ้: <%= user.info.medicine_allergy %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">หมู่เลือด: <%= user.info.blood_group %></p>
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์: <%= user.info.phone_number %></p>
+                                    </div>
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">อีเมล: <%= user.info.email %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="second">
+                                <h2 class="ui header font-FCActive">ข้อมูลผู้ปกครอง</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อ - นามสกุลผู้ปกครอง:
+                                            <%= user.info.parent_name %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์ผู้ปกครอง:
+                                            <%= user.info.parent_phone_number %></p>
+                                        <p class="column font-thSarabun">ผู้ปกครองเกี่ยวข้องเป็น:
+                                            <%= user.info.parent_relation %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="third">
+                                <h2 class="ui header font-FCActive">ข้อมูลการศึกษา</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อโรงเรียน: <%= user.info.school %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ระดับชั้น: <%= user.info.education_level %></p>
+                                        <p class="column font-thSarabun">สายการเรียน: <%= user.info.education_program %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เกรด/GPA : <%= user.info.gpa %></p>
+                                        <p class="column font-thSarabun">ใบปพ. 1:
+                                            <% if (user.info.grade_report_file_name.split('.')[1] === 'pdf') { %>
+                                                <object data="/api/documents/<%= user.info.grade_report_file_name %>" type='application/pdf' width='100%' height='100%'>
+                                                    <p>
+                                                        <a href="/api/documents/<%= user.info.grade_report_file_name %>">Download</a>
+                                                    </p>
+                                                </object>
+                                            <% } else { %>
+                                                <img class="img-fluid" src="/api/documents/<%= user.info.grade_report_file_name %>">
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="fourth">
+                                <h2 class="ui header font-FCActive">คำตอบ</h2>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 1 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score1 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer1 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="1">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 2 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score2 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer2 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="2">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 3 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score3 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer3 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="3">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 4 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score4 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer4 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="4">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 5 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score5 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer5 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="5">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 6 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score6 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer6 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="6">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions ">
+                        <form class="ui form" action="/staff/all" method="POST">
+                            <button class="ui button green" value="passed">PASSED</button>
+                            <button class="ui button yellow" value="substitue">SUBSTITUE</button>
+                            <button class="ui button red" name="status" value="reject">REJECT</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+
+                <h1>Rejected (<%= rejectedUsers.length %>)</h1>
+                <hr>
+                <% rejectedUsers.forEach(user => { %>
+                <div class="row" style="margin-bottom: 1rem;">
+                    <div class="column">
+                        <div class="ui horizontal card" style="margin-right: 0;width: 100%;">
+                            <div>
+                                <img class="ui small image" src="/api/pictures/<%= user.info.profile_picture_file_name %>">
+                            </div>
+                            <div class="content">
+                                <div class="description">
+                                    <h4><strong>ID:</strong> <%= user.info.id %></h4>
+                                    <p><strong>Name:</strong> <%= user.info.th_first_name %> <%= user.info.th_last_name %></p>
+                                    <p><strong>Total Score (1-5 Weighted):</strong> <%= user.total_score %>/100</p>
+                                    <p><strong>Score 6:</strong> <%= user.score6 %>/20</p>
+                                    <button class="ui button" id="<%= user.info.id %>-modal" onclick="showInfo(this)"
+                                        style="margin-bottom: 0.5rem;">Show info</button>
+                                </div>
+                                <form class="ui form"  method="POST">
+                                    <input type="hidden" name="user_id" value="<%= user.info.id %>">
+                                    <textarea name="additional_note" cols="30" rows="10" style="margin-bottom: 1rem;"><%= user.additional_note %></textarea>
+                                    <button class="ui button green" name="status" value="passed">PASSED</button>
+                                    <button class="ui button yellow" name="status" value="substitue">SUBSTITUE</button>
+                                    <button class="ui button" name="status" value="uncheck">UNCHECK</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui modal <%= user.info.id %>-modal ">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        User ID : <%= user.info.id %>
+                    </div>
+                    <div class="scrolling content">
+                        <div class="description">
+                            <div class="ui top attached tabular menu font-FCActive" id="review-tap">
+                                <a class="item active" data-tab="first">ข้อมูลทั่วไป</a>
+                                <a class="item" data-tab="second">ข้อมูลผู้ปกครอง</a>
+                                <a class="item" data-tab="third">ข้อมูลการศึกษา</a>
+                                <a class="item" data-tab="fourth">คำตอบ</a>
+                            </div>
+                            <div class="ui bottom attached tab segment active" data-tab="first">
+                                <h2 class="ui header font-FCActive">ข้อมูลทั่วไป</h2>
+                                <img src="/api/pictures/<%= user.info.profile_picture_file_name %>" alt="User profile"
+                                    class="ui small image centered">
+                                <br>
+                                <div class="ui four column grid">
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาไทย): <%= user.info.th_first_name %></p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาไทย): <%= user.info.th_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อ (ภาษาอังกฤษ): <%= user.info.en_first_name %>
+                                        </p>
+                                        <p class="column font-thSarabun">นามสกุล (ภาษาอังกฤษ): <%= user.info.en_last_name %>
+                                        </p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ชื่อเล่น: <%= user.info.nick_name %></p>
+                                        <p class="column font-thSarabun">เพศ: <%= user.info.gender %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">วันเกิด: <%= user.info.birth_date %></p>
+                                        <p class="column font-thSarabun">ศาสนา: <%= user.info.religion %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เลขบัตรประชาชน: <%= user.info.national_id %></p>
+                                        <p class="column font-thSarabun">โรคประจำตัว: <%= user.info.diseases %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">อาหารที่แพ้: <%= user.info.food_allergy %></p>
+                                        <p class="column font-thSarabun">ยาที่แพ้: <%= user.info.medicine_allergy %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">หมู่เลือด: <%= user.info.blood_group %></p>
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์: <%= user.info.phone_number %></p>
+                                    </div>
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">อีเมล: <%= user.info.email %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="second">
+                                <h2 class="ui header font-FCActive">ข้อมูลผู้ปกครอง</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อ - นามสกุลผู้ปกครอง:
+                                            <%= user.info.parent_name %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เบอร์โทรศัพท์ผู้ปกครอง:
+                                            <%= user.info.parent_phone_number %></p>
+                                        <p class="column font-thSarabun">ผู้ปกครองเกี่ยวข้องเป็น:
+                                            <%= user.info.parent_relation %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="third">
+                                <h2 class="ui header font-FCActive">ข้อมูลการศึกษา</h2>
+                                <div class="ui two column grid">
+                                    <div class="one column row">
+                                        <p class="column font-thSarabun">ชื่อโรงเรียน: <%= user.info.school %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">ระดับชั้น: <%= user.info.education_level %></p>
+                                        <p class="column font-thSarabun">สายการเรียน: <%= user.info.education_program %></p>
+                                    </div>
+                                    <div class="two column row">
+                                        <p class="column font-thSarabun">เกรด/GPA : <%= user.info.gpa %></p>
+                                        <p class="column font-thSarabun">ใบปพ. 1:
+                                            <% if (user.info.grade_report_file_name.split('.')[1] === 'pdf') { %>
+                                                <object data="/api/documents/<%= user.info.grade_report_file_name %>" type='application/pdf' width='100%' height='100%'>
+                                                    <p>
+                                                        <a href="/api/documents/<%= user.info.grade_report_file_name %>">Download</a>
+                                                    </p>
+                                                </object>
+                                            <% } else { %>
+                                                <img class="img-fluid" src="/api/documents/<%= user.info.grade_report_file_name %>">
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="ui bottom attached tab segment" data-tab="fourth">
+                                <h2 class="ui header font-FCActive">คำตอบ</h2>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 1 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score1 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer1 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="1">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 2 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score2 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer2 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="2">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 3 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score3 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer3 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="3">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 4 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score4 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer4 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="4">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 5 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score5 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer5 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="5">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                                <div class="ui segment">
+                                    <h2 class="ui header font-FCActive">คำตอบข้อที่ 6 - (คะแนนไม่ถ่วงน้ำหนักที่ได้ <%= user.score6 %> คะแนน)</h2>
+                                    <p class="font-thSarabun"><%= user.answer.answer6 %></p>
+                                    <form action="/staff/comment" method="POST">
+                                        <input type="hidden" name="user_id" value="<%= user.user_id %>">
+                                        <input type="hidden" name="questionNumber" value="6">
+                                        <button class="ui teal button">Show comments</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="actions ">
+                        <form class="ui form" action="/staff/all" method="POST">
+                            <button class="ui button green" value="passed">PASSED</button>
+                            <button class="ui button yellow" value="substitue">SUBSTITUE</button>
+                            <button class="ui button" name="status" value="uncheck">UNCHECK</button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+    <%- include('includes/footer') %>
+    </div>
+    <script>
+        function showInfo(e) {
+            console.log(e.id);
+            $('.' + e.id)
+                .modal('show')
+                ;
+        }
+        $('.menu .item')
+            .tab()
+            ;
+    </script>
+    <script>
+        window.onscroll = function () { registerNavbar() };
+        var navbar = document.getElementById("register-nav");
+        var sticky = navbar.offsetTop + 25;
+
+        function registerNavbar() {
+            if (window.pageYOffset > sticky) {
+                navbar.classList.add("sticky");
+                navbar.classList.remove("hidden");
+            } else {
+                navbar.classList.remove("sticky");
+                navbar.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+
+</html>

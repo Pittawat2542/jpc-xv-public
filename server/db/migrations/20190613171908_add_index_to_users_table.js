@@ -1,16 +1,11 @@
 exports.up = function(knex, Promise) {
   return knex.schema.table("jpc_xv_users", function(table) {
-    table
-      .foreign("answer_id")
-      .references("id")
-      .inTable("jpc_xv_answers")
-      .onDelete("CASCADE");
+    table.integer("index");
   });
 };
 
 exports.down = function(knex, Promise) {
   return knex.schema.table("jpc_xv_users", function(table) {
-    table.dropForeign("answer_id");
-    table.dropColumn("answer_id");
+    table.dropColumn("index");
   });
 };

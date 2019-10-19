@@ -1,0 +1,109 @@
+@font-face {
+	font-family: "FCActive";
+	src: url("/assets/fonts/FCActiveRegular.eot?#iefix") format("embedded-opentype"),
+		url(/assets/fonts/FCActiveRegular.woff) format("woff"),
+		url(/assets/fonts/FCActiveRegular.ttf) format("truetype"),
+		url("/assets/fonts/FCActiveRegular.svg#FCActiveRegular") format("svg");
+	font-weight: 400;
+	font-style: normal;
+}
+body {
+	background-color: #232325;
+	overflow-y: hidden;
+}
+
+.result-container .grid {
+	height: 100%;
+	margin: 0;
+}
+
+.row {
+	padding: 1em !important;
+}
+
+.bg {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-image: url(/assets/img/login-bg.jpg);
+	background-position: bottom;
+	background-repeat: no-repeat;
+	background-size: cover;
+	filter: brightness(28%);
+}
+#logo {
+	position: absolute;
+	left: 50%;
+	top: 25%;
+	transform: translate(-50%, -50%) scale(.9);
+}
+
+.result-container {
+	width: 100vw;
+	height: 100vh;
+}
+.sub.result-container {
+	height: 100vh;
+}
+.fail {
+	margin-top: -1rem;
+}
+.fail h1 {
+	font-size: 3rem !important;
+}
+
+.header {
+	font-family: Sarabun, sans-serif !important;
+}
+
+.sub.header,
+.pass.header {
+	color: white !important;
+}
+
+.sub.header {
+	font-size: 4em !important;
+}
+.pass.header {
+	font-size: 3em !important;
+}
+
+.pass-heading {
+	margin: 1.5em auto 2em auto;
+}
+
+.pass-desc {
+	font-family: Sarabun, sans-serif !important;
+	color: white !important;
+}
+
+form {
+	width: 100%;
+	max-width: 700px !important;
+	margin: 0 auto;
+	background-color: white;
+	padding: 1.5em 1em;
+}
+
+label {
+	font-family: "FCActive";
+	font-size: 1.4rem !important;
+	font-weight: 1000 !important;
+}
+
+.failed.image {
+	filter: invert(100%);
+}
+
+@media only screen and (max-width: 736px) {
+	body {
+		overflow-y: auto;
+	}
+	.result-container {
+		height: auto;
+	}
+	.sub.header,
+	.pass.header {
+		font-size: 2.25em !important;
+	}
+}

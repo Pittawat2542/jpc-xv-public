@@ -1,0 +1,45 @@
+@font-face {
+  font-family: FCActive;
+  src: url(/assets/fonts/FCActiveRegular.eot?#iefix) format("embedded-opentype"),
+    url(/assets/fonts/FCActiveRegular.woff) format("woff"),
+    url(/assets/fonts/FCActiveRegular.ttf) format("truetype"),
+    url(/assets/fonts/FCActiveRegular.svg#FCActiveRegular) format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-FCActive {
+  font-family: "FCActive", sans-serif !important;
+}
+
+.width-100 {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.height-limit {
+  margin: 1rem 0;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+}
+
+.green {
+  font-weight: bold !important;
+  color: #5cb85c !important;
+}
+
+.red {
+  color: #d9534f !important;
+}
+
+.white {
+  color: #f0f0f0 !important;
+}
+
+.yellow {
+  color: #ffc107 !important;
+}

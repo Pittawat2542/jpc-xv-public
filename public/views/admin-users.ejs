@@ -1,0 +1,160 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" href="/assets/css/styles-admin.css">
+<script src="/assets/js/scripts-admin.js"></script>
+</head>
+
+<body>
+  <section class="ui inverted vertical aligned segment">
+    <div class="ui container">
+      <h1 class="font-FCActive">JPC XV :: Admin Dashboard :: Users Management</h1>
+      <div class="ui inverted divider"></div>
+      <div class="ui two column stackable grid" style="margin-top: 1rem;">
+          <div class="center aligned column">
+              <div class="ui inverted statistic">
+                  <div class="label font-FCActive">จำนวนน้องที่สมัครค่ายทั้งหมด</div>
+                  <div class="value"><%= countAll %></div>              
+              </div>
+          </div>
+          <div class="center aligned column">
+              <div class="ui inverted statistic">
+                  <div class="label font-FCActive">จำนวนน้องที่สมัครค่ายสำเร็จ</div>
+                  <div class="value"><%= countCompleted %></div>
+              </div>
+          </div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <div class="row">
+        <form id="search-user" class="ui form">
+          <h3>Search User Info</h3>
+          <div class="field">
+            <label class="white" for="id">USER ID: </label>
+            <input class="form-control" type="text" name="id" required>
+          </div>
+          <button type="submit" class="ui primary inverted button">Search</button>
+        </form>
+      </div>
+      <div class="row">
+        <div id="search-result-user" class="width-100 height-limit light-scrollbar"></div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <div class="row">
+        <form id="search-answer" class="ui form">
+          <h3>Search Answer</h3>
+          <div class="field">
+            <label class="white" for="id">USER ID: </label>
+            <input class="form-control" type="text" name="id" required>
+          </div>
+          <button type="submit" class="ui primary inverted button">Search</button>
+        </form>
+      </div>
+      <div class="row">
+        <div id="search-result-answer" class="width-100 height-limit light-scrollbar"></div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <div class="row">
+        <form id="upload-picture" enctype="multipart/form-data">
+          <h4>Uplaod Picture for User</h4>
+          <label for="id">USER ID: </label>
+          <input class="form-control" type="text" name="id" required>
+          <input class="form-control" type="file" name="picture" required>
+          <button class="ui primary inverted button" type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="ui inverted divider"></div>
+      <div class="row">
+        <form id="upload-document" enctype="multipart/form-data">
+          <h4>Uplaod Document for User</h4>
+          <label for="id">USER ID: </label>
+          <input class="form-control" type="text" name="id" required>
+          <input class="form-control" type="file" name="document" required>
+          <button class="ui primary inverted button" type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="ui inverted divider"></div>
+      <div class="row">
+        <form id="search-user-all" class="ui form">
+          <h4>Show All Users</h4>
+          <button type="submit" class="ui primary inverted button">Show All</button>
+        </form>
+      </div>
+      <div class="row">
+        <div id="search-result-user-all" class="width-100 height-limit light-scrollbar"></div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <div class="row">
+          <form id="search-user-all-completed" class="ui form">
+            <h4>Show All Completed Users</h4>
+            <button type="submit" class="ui primary inverted button">Show All</button>
+          </form>
+        </div>
+        <div class="row">
+          <div id="search-result-user-all-completed" class="width-100 height-limit light-scrollbar"></div>
+        </div>
+        <div class="ui inverted divider"></div>
+      <div class="row">
+        <form id="search-answer-all" class="ui form">
+          <h4>Show All Answers</h4>
+          <button type="submit" class="ui primary inverted button">Show All</button>
+        </form>
+      </div>
+      <div class="row">
+        <div id="search-result-answer-all" class="width-100 height-limit light-scrollbar"></div>
+      </div>
+      <div class="ui inverted divider"></div>
+      <div class="row">
+        <form
+        class="ui large form"
+        action="/admin/edit/verification"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="required field">
+          <label class='white'>User ID</label>
+          <input type="text" name="user_id">
+        </div>
+        <div class="two fields">
+          <div class="required field">
+            <label class='white'>ขนาดเสื้อ</label>
+            <select name="shirt_size">
+              <option value="S">S (รอบอก 32'' ความยาว 25'')</option>
+              <option value="M">M (รอบอก 36'' ความยาว 27'')</option>
+              <option value="L">L (รอบอก 40'' ความยาว 29'')</option>
+              <option value="XL">XL (รอบอก 44'' ความยาว 31'')</option>
+              <option value="2XL">2XL (รอบอก 48'' ความยาว 32'')</option>
+              <option value="3XL">3XL (รอบอก 50'' ความยาว 33'')</option>
+            </select>
+          </div>
+          <div class="required field">
+            <label class='white'>สถานที่ที่ต้องการให้ไปรับ</label>
+            <select name="pickup_location">
+              <option value="KMUTT"
+                >มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</option
+              >
+              <option value="สถานีรถไฟหัวลำโพง">สถานีรถไฟหัวลำโพง</option>
+              <option value="อนุสาวรีย์ชัยสมรภูมิ (เกาะพญาไท)"
+                >อนุสาวรีย์ชัยสมรภูมิ (เกาะพญาไท)
+              </option>
+              <option value="สถานีขนส่งหมอชิต 2">สถานีขนส่งหมอชิต 2</option>
+              <option value="สนามบินดอนเมือง">สนามบินดอนเมือง</option>
+            </select>
+          </div>
+        </div>
+        <div class="required field">
+          <label class='white'>หลักฐานการชำระค่าธรรมเนียม</label>
+          <input type="file" name="verification_proof" />
+        </div>
+        <button class="ui primary button" type="submit">Submit</button>
+      </form>
+      </div>
+      <div class="ui inverted divider"></div>
+    </div>
+
+    <footer class="ui inverted center aligned segment">
+        <div class="ui inverted divider"></div>
+        <p>&copy; 2019 <i class="fas fa-code"></i> with <i class="fas fa-bed"></i> less <i class="fas fa-moon"></i> s by Pittawat Taveekitworachai</p>
+    </footer>
+  </section>
+</body>
+
+</html>

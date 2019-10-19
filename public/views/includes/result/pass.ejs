@@ -1,0 +1,66 @@
+<div class="bg"></div>
+<div class="pass result-container">
+  <div class="ui middle aligned left aligned grid container">
+    <div class="column">
+      <div class="pass-heading">
+        <h1 class="ui inverted centered pass header">ขอแสดงความยินดีด้วย!</h1>
+        <h3 class="ui centered pass-desc header">
+          น้อง<%= user.th_first_name %> <%= user.th_last_name %>
+          มีคุณสมบัติเพียงพอที่จะเข้าร่วมแก๊งของเรา
+          ตอนนี้ก็เหลือเพียงเเค่การยืนยันว่าต้องการเข้าร่วมแก๊งของเราจริง ๆ..
+        </h3>
+      </div>
+      <form
+        class="ui large form"
+        action="/result"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <h4 class="ui dividing header">ยืนยันสิทธิ์</h4>
+        <div class="two fields">
+          <div class="required field">
+            <label>ขนาดเสื้อ</label>
+            <select name="shirt_size">
+              <option value="S">S (รอบอก 32'' ความยาว 25'')</option>
+              <option value="M">M (รอบอก 36'' ความยาว 27'')</option>
+              <option value="L">L (รอบอก 40'' ความยาว 29'')</option>
+              <option value="XL">XL (รอบอก 44'' ความยาว 31'')</option>
+              <option value="2XL">2XL (รอบอก 48'' ความยาว 32'')</option>
+              <option value="3XL">3XL (รอบอก 50'' ความยาว 33'')</option>
+            </select>
+          </div>
+          <div class="required field">
+            <label>สถานที่ที่ต้องการให้ไปรับ</label>
+            <select name="pickup_location">
+              <option value="KMUTT"
+                >มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</option
+              >
+              <option value="สถานีรถไฟหัวลำโพง">สถานีรถไฟหัวลำโพง</option>
+              <option value="อนุสาวรีย์ชัยสมรภูมิ (เกาะพญาไท)"
+                >อนุสาวรีย์ชัยสมรภูมิ (เกาะพญาไท)
+              </option>
+              <option value="สถานีขนส่งหมอชิต 2">สถานีขนส่งหมอชิต 2</option>
+              <option value="สนามบินดอนเมือง">สนามบินดอนเมือง</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>รายละเอียดการชำระค่าธรรมเนียม</label>
+          <div class="ui card">
+            <div class="content">
+              <p>ชื่อบัญชี: เกียรติศักดิ์ เพ็ชรหอย</p>
+              <p>เลขที่บัญชี: 237-2-23680-0</p>
+              <p>จำนวนเงิน: 450.00 บาท</p>
+              <p>ธนาคารไทยพาณิชย์ สาขามหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</p>
+            </div>
+          </div>
+        </div>
+        <div class="required field">
+          <label>หลักฐานการชำระค่าธรรมเนียม</label>
+          <input type="file" name="verification_proof" />
+        </div>
+        <button class="ui primary button" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

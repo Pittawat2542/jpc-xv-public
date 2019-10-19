@@ -1,0 +1,30 @@
+<%- include('includes/header') %>
+
+    <link rel="stylesheet" href="/assets/css/styles-result.css">
+    <script src="/assets/js/scripts-result.js"></script>
+</head>
+
+<body>
+    <section>
+        <% if (!result) { %>
+            <div class="bg"></div>
+            <div class="result-container">
+                <div class="ui middle aligned left aligned grid container">
+                    <div class="column">
+                        <div class="pass-heading">
+                            <h1 class="ui inverted centered header">สนใจละสิ! ปีนี้ไม่ได้สมัครค่าย หรือสมัครค่ายไม่เสร็จ ปีหน้าก็อย่าลืมมาสมัครกันด้วยนะ ^_^</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } else if (result.status === 0 || result.status === 3) { %>
+            <%- include('includes/result/failed') %>
+        <% } else if (result.status === 1) { %>
+            <%- include('includes/result/pass') %>
+        <% } else if (result.status === 2) { %>
+            <%- include('includes/result/substitute') %>
+        <% } %>
+    </section>
+</body>
+
+</html>

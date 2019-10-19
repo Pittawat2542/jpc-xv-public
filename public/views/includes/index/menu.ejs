@@ -1,0 +1,33 @@
+<!-- Following menu -->
+<div class="ui inverted large top fixed hidden menu">
+  <div class="ui container">
+    <a class="item" href="#what-section">What</a>
+    <a class="item" href="#location-section">Where</a>
+    <a class="item" href="#when-section">When</a>
+    <a class="item" href="#faq-section">FAQ</a>
+    <a class="item" href="#sponsor-section">Sponsor</a>
+    <div class="right menu">
+      <% if (new Date() > new Date(2019, 5, 23, 18) && new Date() < new
+      Date(2019, 5, 28, 10) || process.env.NODE_ENV === 'development') { %>
+      <a class="item" href="/result">
+        <button class="ui inverted result button">
+          ตรวจสอบผลการคัดเลือก
+        </button>
+      </a>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar menu -->
+<div class="ui vertical inverted sidebar menu">
+  <a class="item" href="#what-section">What</a>
+  <a class="item" href="#location-section">Where</a>
+  <a class="item" href="#when-section">When</a>
+  <a class="item" href="#faq-section">FAQ</a>
+  <a class="item" href="#sponsor-section">Sponsor</a>
+  <% if (new Date() > new Date(2019, 5, 23, 18) && new Date() < new Date(2019,
+  5, 28, 10) || process.env.NODE_ENV === 'development') { %>
+  <a class="item" href="/result">ตรวจสอบผลการคัดเลือก</a>
+  <% } %>
+</div>

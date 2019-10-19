@@ -1,0 +1,76 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" href="/assets/css/styles-staff.css">
+<script src="/assets/js/scripts-staff.js"></script>
+</head>
+
+<body>
+    <%- include('includes/staff/menu-staff') %>
+    <section style="margin-bottom: 10rem;" class="pusher">
+        <%- include('includes/staff/menu-mobile-staff') %>
+        <div class="ui vertical stripe segment font-thSarabun" id="register-content">
+
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="column">
+                        <form class="ui form" action="/staff/register" method="post">
+                            <h4 class="ui dividing header font-FCActive">ข้อมูลผู้ตรวจคำตอบ</h4>
+                            <div class="field">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <label class="font-FCActive">ชื่อ</label>
+                                        <input type="text" name="name" placeholder="จูเนียร์" required>
+                                    </div>
+                                    <div class="field">
+                                        <label class="font-FCActive">นามสกุล</label>
+                                        <input type="text" name="surname" required placeholder="โปรแกรมเมอร์แคมป์">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <label class="font-FCActive">เลขประจำตัวนักศึกษา</label>
+                                        <input type="text" name="student_id" placeholder="61130500200">
+                                    </div>
+                                    <div class="field">
+                                        <label class="font-FCActive">คำถามที่รับผิดชอบ</label>
+                                        <select class="ui fluid dropdown" name="role">
+                                            <option value="1">ตรวจคำตอบข้อที่ 1</option>
+                                            <option value="2">ตรวจคำตอบข้อที่ 2</option>
+                                            <option value="3">ตรวจคำตอบข้อที่ 3</option>
+                                            <option value="4">ตรวจคำตอบข้อที่ 4</option>
+                                            <option value="5">ตรวจคำตอบข้อที่ 5</option>
+                                            <option value="6">ตรวจคำตอบข้อที่ 6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="ui button" value="submit" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <%- include('includes/footer') %>
+    </div>
+    <script>
+        window.onscroll = function () { registerNavbar() };
+        var navbar = document.getElementById("register-nav");
+        var sticky = navbar.offsetTop + 25;
+
+        function registerNavbar() {
+            if (window.pageYOffset > sticky) {
+                navbar.classList.add("sticky");
+                navbar.classList.remove("hidden");
+            } else {
+                navbar.classList.remove("sticky");
+                navbar.classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+
+</html>

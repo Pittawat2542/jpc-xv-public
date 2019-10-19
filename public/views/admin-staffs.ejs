@@ -1,0 +1,134 @@
+<%- include('includes/header') %>
+
+    <link rel="stylesheet" href="/assets/css/styles-admin.css">
+    <script src="/assets/js/scripts-admin.js"></script>
+</head>
+
+<body>
+    <section class="ui inverted vertical aligned segment">
+        <div class="ui container">
+                <h1 class="font-FCActive">JPC XV :: Admin Dashboard :: Staffs Management</h1>
+                <div class="ui inverted divider"></div>
+                <div class="ui three column stackable grid">
+                    <div class="center aligned column">
+                        <div class="ui inverted statistic">
+                            <div class="label font-FCActive">ตัวจริง</div>
+                            <div class="value"><%= countPassed %>/64</div>              
+                        </div>
+                    </div>
+                    <div class="center aligned column">
+                        <div class="ui inverted statistic">
+                            <div class="label font-FCActive">ตัวสำรอง</div>
+                            <div class="value"><%= countSubstitue %>/5</div>
+                        </div>
+                    </div>
+                    <div class="center aligned column">
+                        <div class="ui inverted statistic">
+                            <div class="label font-FCActive">น้องยืนยันสิทธิ์ไปแล้ว</div>
+                            <div class="value"><%= verifications.length %>/<%= passedUsers.length %></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui inverted divider"></div>
+                <h2>Staffs Grading Status (<%= staffs.length %> people)</h2>
+                <div class="ui inverted divider"></div>
+                <div class="ui cards">
+                <% staffs.forEach(staff => { %>
+                        <div class="ui centered inverted card">
+                            <div class="content">
+                                <h2 class="header"><%= staff.student_id %> <%= staff.name %> <%= staff.surname %></h2>
+                                <p>Grade question number: <%= staff.role %></p>
+                                <% if (staff.current_index === countAllCompletedUsers) { %>
+                                <p>Status: <span class="green">COMPLETED</span></p>
+                                <% } else { %>
+                                <p>Status: <%= staff.current_index %>/<%= countAllCompletedUsers %></p>
+                                <% } %>
+                            </div>
+                        </div>
+                <% }) %>
+                </div>
+                <div class="ui inverted divider"></div>
+                <h2>Users Verifications Summary </h2>
+                <div class="ui inverted divider"></div>
+                <p>น้องยืนยันสิทธิ์ไปแล้ว <%= verifications.length %>/<%= passedUsers.length %> คน</p>
+                <div class="ui two column stackable grid">
+                    <div class="column">
+                        <h3 class="font-FCActive">ขนาดเสื้อ</h3>
+                        <ul>
+                            <%
+                                var countShirt = [0, 0, 0, 0, 0, 0]; 
+                                verifications.map(verification => verification.shirt_size === 'S' ? countShirt[0]++: 0);
+                                verifications.map(verification => verification.shirt_size === 'M' ? countShirt[1]++: 0);
+                                verifications.map(verification => verification.shirt_size === 'L' ? countShirt[2]++: 0);
+                                verifications.map(verification => verification.shirt_size === 'XL' ? countShirt[3]++: 0);
+                                verifications.map(verification => verification.shirt_size === '2XL' ? countShirt[4]++: 0);
+                                verifications.map(verification => verification.shirt_size === '3XL' ? countShirt[5]++: 0);
+                            %>
+                            <li>S - <%= countShirt[0] %> คน</li>
+                            <li>M - <%= countShirt[1] %> คน</li>
+                            <li>L - <%= countShirt[2] %> คน</li>
+                            <li>XL - <%= countShirt[3] %> คน</li>
+                            <li>2XL - <%= countShirt[4] %> คน</li>
+                            <li>3XL - <%= countShirt[5] %> คน</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3 class="font-FCActive">สถานที่นัดหมาย</h3>
+                        <ul>                
+                            <%
+                                var countLocation = [0, 0, 0, 0, 0]; 
+                                verifications.map(verification => verification.pickup_location === 'KMUTT' ? countLocation[0]++: 0);
+                                verifications.map(verification => verification.pickup_location === 'สถานีรถไฟหัวลำโพง' ? countLocation[1]++: 0);
+                                verifications.map(verification => verification.pickup_location === 'อนุสาวรีย์ชัยสมรภูมิ (เกาะพญาไท)' ? countLocation[2]++: 0);
+                                verifications.map(verification => verification.pickup_location === 'สถานีขนส่งหมอชิต 2' ? countLocation[3]++: 0);
+                                verifications.map(verification => verification.pickup_location === 'สนามบินดอนเมือง' ? countLocation[4]++: 0);
+                            %>
+                            <li>KMUTT - <%= countLocation[0] %> คน</li>
+                            <li>สถานีรถไฟหัวลำโพง - <%= countLocation[1] %> คน</li>
+                            <li>อนุสาวรีย์ชัยสมรภูมิ (เกาะพญาไท) - <%= countLocation[2] %> คน</li>
+                            <li>สถานีขนส่งหมอชิต 2 - <%= countLocation[3] %> คน</li>
+                            <li>สนามบินดอนเมือง - <%= countLocation[4] %> คน</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ui inverted divider"></div>
+                <h2>Users Verifications (<%= verifications.length %>/<%= passedUsers.length %>)</h2>
+                <div class="ui inverted divider"></div>
+                <div class="ui cards">
+                <% passedUsers.forEach(passedUser => { %>
+                    <% let verificationStatus = verifications.map(verification => verification.user_id === passedUser.user_id).find(foundUser => foundUser === true) %>
+                    <div class="ui centered inverted card">
+                        <div class="content">
+                            <h2 class="header"><%= passedUser.info.th_first_name %> <%= passedUser.info.th_last_name %></h2>
+                            <p>User ID: <%= passedUser.user_id %></p>
+                            <p>Status: <span class="<%= verificationStatus ? 'green' : 'red' %>"><%= verificationStatus === undefined ? "Not Verified" : "Verified" %></span></p>
+                            <p>เบอร์ติดต่อ: <%= passedUser.info.phone_number %></p>
+                            <% if (verificationStatus) { %>
+                            <form action="/admin/staffs/verification" method="POST">
+                                <input type="hidden" name="user_id" value="<%= passedUser.user_id %>">
+                                <button class="ui teal inverted button">Verification Details</button>
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+                </div>
+                <div class="ui inverted divider"></div>
+                <div class="ui inverted center aligned segment">
+                    <h1 class="red">--- !!!DANGER!!! ---</h1>
+                    <p class="yellow">Be sure that you know what you are doing!</p>
+                    <form action="/admin/calculate-score" method="POST">
+                        <button class="ui yellow inverted button">RECALCULATE SCORE</button>
+                    </form>
+                </div>
+                <div class="ui inverted divider"></div>
+                
+                <footer class="ui inverted center aligned segment">
+                    <div class="ui inverted divider"></div>
+                    <p>&copy; 2019 <i class="fas fa-code"></i> with <i class="fas fa-bed"></i> less <i class="fas fa-moon"></i> s by Pittawat Taveekitworachai</p>
+                </footer>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,272 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" href="/assets/css/styles-staff.css">
+<script src="/assets/js/scripts-staff.js"></script>
+</head>
+
+<body>
+    <%- include('includes/staff/menu-staff') %>
+    <section class="pusher">
+        <%- include('includes/staff/menu-mobile-staff') %>
+        <div class="ui vertical stripe segment font-thSarabun" id="register-content" style="margin-bottom: 6.5rem;">
+            <div class="ui middle aligned container">
+                <h1 class="ui dividing header font-FCActive">ตรวจคำตอบ</h1>
+                <div class="ui segment center aligned grid" style="margin-bottom: 1rem !important;">
+                    <div class="row">
+                        <div class="eight wide column">
+                            <h2 class="font-FCActive">User ID: <%= user.id %></h2>
+                        </div>
+                        <div class="eight wide column">
+                            <h2 class="font-FCActive">ตรวจเสร็จแล้ว: <%= current %>/<%= all %> คน</h2>
+                        </div>
+                    </div>
+                </div>
+                <% if(questionNumber === 1 ){ %>
+
+                <h4 class="ui dividing header font-FCActive">ข้อมูลคำถาม
+                    <div class="ui fitted toggle checkbox">
+                        <input type="checkbox" checked id="info-checkbox">
+                        <label></label>
+                    </div>
+                </h4>
+                <div class="ui segment" id="info-box">
+                    <p class="font-thSarabun">น้องเป็นหนึ่งในสมาชิกแก๊งซึ่งถูกหมายตาโดยหลาย ๆ
+                        ฝ่ายจากการโจรกรรมที่สำเร็จนับครั้งไม่ถ้วน
+                        และในตอนนี้น้องได้รับมอบหมายให้วางแผนการโจรกรรมครั้งใหญ่ จากหัวหน้าแก๊งของน้อง
+                        โดยน้องได้รับทรัพยากร และเป้าหมายโจรกรรมมาดังนี้</p>
+                    <h4 class="font-thSarabun">ทรัพยากร</h4>
+                    <ul>
+                        <li class="font-thSarabun">ลูกสมุน (สามารถรับมือศัตรูได้ 1 คน) จำนวน 10 คน
+                            เนื่องด้วยลูกสมุนไร้ความสามารถ
+                            ทุกครั้งที่ส่งไปปล้น
+                            จะได้รับบาดเจ็บ 2 คน (ผู้ที่บาดเจ็บไม่สามารถทำภารกิจต่อได้)</li>
+                        <li class="font-thSarabun">ผู้ที่มีความสามารถในการต่อสู้
+                            (สามารถรับมือหน่วยรักษาความปลดภัยขั้นสูงได้มากถึง 6
+                            คน) จำนวน 2 คน
+                            ถ้าส่งไปพร้อมลูกสมุนจะทำให้ลูกสมุนรับมือกับศัตรูได้ 2 คน</li>
+                        <li class="font-thSarabun">ไซบอร์ก จำนวน 1 ตน
+                            มีความสามารถในการรับมือกับระบบรักษาความปลอดภัยต่าง ๆ ได้
+                            แต่ถ้าโดนซ็อต
+                            จะส่งผลให้ระบบเกิดความผิดพลาด</li>
+                        <li class="font-thSarabun">เงิน จำนวน 1000€Ƶ และ รถขนส่ง จำนวน 1 คัน</li>
+                    </ul>
+                    <h4 class="font-thSarabun">เป้าหมายโจรกรรม</h4>
+                    <img class="ui huge image" src="/assets/img/question-map.jpg" alt="">
+                    <ul>
+                        <li class="font-thSarabun">ธนาคาร มีหน่วยรักษาความปลดภัยขั้นสูงมากถึง 20 คน
+                            (<span
+                                class="register-underline">ซึ่งอุปกรณ์ปกติไม่สามารถทำอะไรหน่วยรักษาความปลอดภัยได้</span>)
+                            มีกล้องวงจรปิด มีระบบตรวจจับความร้อน
+                            ทั้งหมดนี้ เพื่อรักษาทองคำมูลค่า 4000€Ƶ</li>
+                        <li class="font-thSarabun">ตลาดมืด ตั้งอยู่ในโกดังร้างใต้ดินที่มีหน่วยรักษาความปลอดภัย<span
+                                class="register-underline">ที่มีปืนและกระบองไฟฟ้าปนกัน</span>กว่า 10 คน
+                            ซึ่งน้องสามารถ<span class="register-underline">ชื้อขาย</span>หรือ<span
+                                class="register-underline">จะทำการปล้น</span>ก็ได้โดยภายในตลาดมืดจะมี
+                            <ul>
+                                <li class="font-thSarabun">ปืนขายอยู่ที่ 300€Ƶ ต่อกระบอก (จำนวน : 10 กระบอก)</li>
+                                <li class="font-thSarabun">ลูกสมุนจ้างได้ที่ 200€Ƶ ต่อคน</li>
+                                <li class="font-thSarabun">
+                                    ในแต่ละช่วงเวลาะมีสินค้าพิเศษหมุนเวียนเข้ามาในตลาดมืดแห่งนี้ โดยแบ่งเป็น
+                                    3 ช่วงเวลา
+                                    <ul>
+                                        <li class="font-thSarabun">ตอนเช้า จะมีพ่อค้าขายแร่หายากที่มีมูลค่า 1000€Ƶ
+                                        </li>
+                                        <li class="font-thSarabun">ตอนกลางวัน จะมีพ่อขายขายอุปกรณ์พิเศษ
+                                            (<span
+                                                class="register-underline">ซึ่งสามารถทำให้ลูกสมุนปกติของเราต่อกรกับหน่วยรักษาความปลอดภัยขั้นสูงได้</span>)
+                                        </li>
+                                        <li class="font-thSarabun">ตอนกลางคืน
+                                            จะมีการนัดชื้อขายสินค้าล็อตใหญ่ทำให้หน่วยรักษาความปลอดภัยเพิ่มขึ้นสองเท่า
+                                            ซึ่งสินค้านี้มีมูลค่า 8000€Ƶ</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="font-thSarabun">บ้านของผู้ที่มีอิทธิพลสูง
+                            ซึ่งบ้านหลังนี้มีข่าวลือของกุญแจพิเศษที่สามารถไขอะไรก็ได้ในเมืองนี้
+                            มีหน่วยรักษาความปลดภัยขั้นสูงอยู่ 5 คน (<span
+                                class="register-underline">ซึ่งอุปกรณ์ปกติไม่สามารถทำอะไรหน่วยรักษาความปลอดภัยได้</span>)
+                            และมีระบบรักษาความปลอดภัยจำนวนมาก ทำให้ส่งคนไปได้น้อย และยังใช้เวลาทั้งวันอีกด้วย
+                            (ทำให้น้องไม่สามารถใช้คนที่น้องส่งมาที่นี่ไปทำอย่างอื่นต่อได้)
+                        </li>
+                        <li class="font-thSarabun">คลังอาหารที่ใหญ่ที่สุดในเมือง มีหน่วยรักษาความปลอดภัย<span
+                                class="register-underline">ที่มีกระบองไฟฟ้า</span> อยู่ 4 คน
+                            ซึ่งในคลังอาหารนี้ มี - เมล็ดพันธุ์ - อาหาร - น้ำ ซึ่งเป็นสิ่งที่หายากของที่นี่
+                            แต่ว่าไม่มีมูลค่าทางการชื้อขาย</li>
+                    </ul>
+                </div>
+                <% }%>
+                <h1 class="ui dividing header font-FCActive">คำถามข้อที่ <%= questionNumber %>
+                    <div class="ui fitted toggle checkbox">
+                        <input type="checkbox" checked id="question-checkbox">
+                        <label></label>
+                    </div>
+                </h1>
+                <div class="ui segment grid" id="question-box">
+                    <div class="row">
+                        <div class="column">
+                            <p>
+                                <% if (questionNumber === 1) { %>
+                                จากข้อมูลที่และทรัพยากรที่ได้มาน้องจงวางแผนการโจรกรรม โดยให้เขียนขั้นตอนการปล้น
+                                และเหตุผลที่เลือกทำขั้นตอนนั้น ๆ โดยน้องสามารถเลือกสถานที่ที่จะปล้น, จำนวนคน,
+                                อุปกรณ์ที่ใช้, และ ช่วงเวลา (น้องสามารถเติมแต่งเรื่องราวตามจินตนาการของน้องได้เลย)
+                                <% } else if (questionNumber === 2) { %>
+                                จากข้อที่แล้วที่น้องตอบมา แก๊งของน้องก็ได้ทำตามแผนที่วางเอาไว้
+                                แต่ว่าลูกสมุนของน้องคนนึ่งเป็นสายให้กับตำรวจ จึงทำให้แก๊งของน้องโดนซ้อนแผน
+                                และถูกไล่ล่าขณะที่ทำการปล้น ซึ่งทางตำรวจได้แบ่งกำลังออกเป็นสองฝ่าย(ตอบได้ 1 อย่าง
+                                พร้อมอธิบายเหตุผล)
+                                <ul>
+                                    <li>ฝ่ายแรกบุกไปฐานที่มั่นของน้อง
+                                        โดยหัวหน้าน้องได้เสียสละถ่วงเวลาให้พวกน้องหนีไป</li>
+                                    <li>ฝ่ายที่สองบุกจับกุมพวกน้องในขณะที่ทำการปล้น น้องจะเลือกที่จะ</li>
+                                </ul>
+                                <% } else if (questionNumber === 3) { %>
+                                <% if (answer_choice === "help") {%>
+                                ถึงแม้ว่าน้องจะนำสมาชิกแก๊งกลับมารวมกันเพื่อต่อสู้กับตำรวจแล้วก็ตาม
+                                แต่ด้วยกำลังตำรวจจำนวนมากทำให้น้องไม่สามารถต่อสู้ฝ่าวงล้อมออกไปได้และสูญเสียสมาชิกแก๊งบางส่วนไปรวมถึงหัวหน้าของน้องด้วย
+                                ส่งผลให้แก๊งของน้องต้องการหัวหน้าคนใหม่
+                                น้องจะมีวิธีอย่างไรเพื่อให้ตัวเองได้ขึ้นเป็นหัวหน้า
+                                <% } else { %>
+                                จากการที่น้องได้ตัดสินใจไปนั้น
+                                ทำให้หัวหน้าและสมาชิกแก๊งค์ที่เหลือต้องต่อสู้เพียงลำพัง
+                                และไม่มีใครรอดชีวิตมาได้เลยทำให้ในตอนนี้แก๊งของน้องขาดหัวหน้าไป
+                                และต้องการหัวหน้าคนใหม่ น้องจะมีวิธีอย่างไรเพื่อให้ตัวเองได้ขึ้นเป็นหัวหน้า
+                                <% } %>
+                                <% } else if (questionNumber === 4) { %>
+                                น้องนึกถึงตอนที่น้องได้พบกับหัวหน้าครั้งแรก ท่านหัวหน้าได้สั่งให้น้องเขียน
+                                โปรแกรมภาษาอะไรก็ได้ให้เป็นคำว่า ”JPC XV”
+                                เพื่อเป็นการพิสูจน์ตัวเองว่าเหมาะสมกับแก๊งนี้หรือไม่ น้องรำลึกถึงหัวหน้า
+                                จึงได้เขียนโปรแกรมนั้นอีกครั้ง (จงเขียนโปรแกรมเพื่อแสดงคำว่า ”JPC XV” ในภาษาใดก็ได้)
+                                <% } else if (questionNumber === 5) { %>
+                                ในขณะที่น้องกำลังหลบหนีน้องต้องแบ่งคนขึ้นยานพาหนะให้พอดี
+                                เนื่องจากการปล้นของน้องไม่สำเร็จ ทำให้น้องต้องใช้เงินให้ประหยัดที่สุด
+                                น้องจึงเลือกที่จะเขียนโปรแกรมเพื่อแบ่งคน N คน ให้ขึ้นยานพาหนะ 3 ประเภท
+                                <ul>
+                                    <li>รถยนต์ขนาด 5 ที่นั่ง</li>
+                                    <li>รถจักรยานยนต์นั่งได้ 2 คน</li>
+                                    <li>เจ็ทแพ็คสำหรับ 1 คน</li>
+                                </ul>
+                                โดยน้องจะต้องใช้ยานพาหนะให้น้อยที่สุดเท่าที่จะเป็นไปได้
+                                (จงเขียนโปรแกรมแสดงจำนวนยานพาหนะในแต่ละประเภทออกมาเพื่อบรรจุคนจำนวน N คน
+                                ไปในยานพาหนะ 5 , 2 , 1 ที่นั่ง โดยใช้ยานพาหนะให้น้อยที่สุด)
+                                <% } else if (questionNumber === 6) { %>
+                                เนื่องจากน้องเห็นแล้วว่าวิธีการรับคนเข้าแก๊งของหัวหน้าคนเก่านั้นง่ายเกินไป
+                                ทำให้มีสายแฝงตัวเข้ามาเป็นสมาชิกแก๊งได้ ในฐานะหัวหน้าแก๊งคนใหม่
+                                น้องจึงได้เปลี่ยนวิธีการเป็น การแสดงรูปนาฬิกาทราย (จงเขียนโปรแกรมแสดงรูป นาฬิกาทราย
+                                โดยความสูงของนาฬิกาทราย เป็น N)
+                                <% } %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="ui dividing header font-FCActive">คำตอบของน้อง</h1>
+                <div class="ui segment padded">
+                    <div class="row">
+                        <div class="column">
+                            <% if (questionNumber === 2 || questionNumber === 3) { %>
+                            <p>น้องเลือกที่จะ: (<%= answer_choice %>)
+                                <%= answer_choice === "help" ? "พาสมาชิกที่อยู่กับน้องกลับไปช่วยหัวหน้าของน้องและสมาชิกที่เหลือแต่เสี่ยงที่จะโดนจับกันหมด" : "พาสมาชิกที่เหลือหนีไปพร้อมกับของที่ได้ทำการปล้นมาและทิ้งหัวหน้าแก๊งของน้องไว้" %>
+                            </p>
+                            <% } %>
+                            <p><%= answer %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui segment" style="padding-bottom: 3.5rem;">
+                    <div class="row">
+                        <div class="column">
+                            <form id="grading-form" class="ui form" action="/staff" method="POST">
+                                <input type="hidden" name="user_id" value="<%= user.id %>">
+                                <div class="field">
+                                    <label class="font-FCActive">คะแนน</label>
+                                    <input type="number" name="score" min="0" max="20" required>
+                                </div>
+                                <div class="field">
+                                    <label class="font-FCActive">Comment (optaional)</label>
+                                    <textarea name="comment" cols="30" rows="10"></textarea>
+                                </div>
+                                <button class="ui button primary" style="float: right;" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <%- include('includes/footer') %>
+    </div>
+    <script>
+        window.onscroll = function () { registerNavbar() };
+        var navbar = document.getElementById("register-nav");
+        var sticky = navbar.offsetTop + 25;
+
+        function registerNavbar() {
+            if (window.pageYOffset > sticky) {
+                navbar.classList.add("sticky");
+                navbar.classList.remove("hidden");
+            } else {
+                navbar.classList.remove("sticky");
+                navbar.classList.add("hidden");
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            if (localStorage.getItem('showQuestion') == null) {
+                var newLocal = { infoShow: true, qShow: true };
+                localStorage.setItem('showQuestion', JSON.stringify(newLocal));
+            } else {
+                var currentLocal = JSON.parse(localStorage.getItem('showQuestion'));
+                try {
+                    document.querySelector('#info-checkbox').checked = currentLocal.infoShow;
+                    if (!document.querySelector('#info-checkbox').checked) {
+                        document.querySelector('#info-box').classList.add('staff-hidden');
+                    }
+                } catch (error) { }
+                document.querySelector('#question-checkbox').checked = currentLocal.qShow;
+                if (!document.querySelector('#question-checkbox').checked) {
+                    document.querySelector('#question-box').classList.add('staff-hidden');
+                }
+            }
+
+        });
+        function toggle(inputId) {
+            var currentLocal = JSON.parse(localStorage.getItem('showQuestion'));
+            if (inputId == 'info-checkbox') {
+                if (currentLocal.infoShow == true) {
+                    console.log('asd1');
+                    document.querySelector('#info-box').classList.add('staff-hidden');
+                } else {
+                    document.querySelector('#info-box').classList.remove('staff-hidden');
+                    console.log('asd2');
+                }
+                currentLocal.infoShow = !currentLocal.infoShow;
+                localStorage.setItem('showQuestion', JSON.stringify(currentLocal));
+            } else if (inputId == 'question-checkbox') {
+                if (currentLocal.qShow == true) {
+                    console.log('asd11');
+                    document.querySelector('#question-box').classList.add('staff-hidden');
+                } else {
+                    document.querySelector('#question-box').classList.remove('staff-hidden');
+                    console.log('asd2');
+                }
+                currentLocal.qShow = !currentLocal.qShow;
+                localStorage.setItem('showQuestion', JSON.stringify(currentLocal));
+            }
+        }
+        try{
+            document.querySelector('#info-checkbox').addEventListener('change', function (e) {
+            console.log(e.target.id);
+            toggle(e.target.id);
+        });
+        }catch(e){}
+        
+        document.querySelector('#question-checkbox').addEventListener('change', function (e) {
+            console.log(e.target.id);
+            toggle(e.target.id);
+        });
+    </script>
+</body>
+
+</html>
